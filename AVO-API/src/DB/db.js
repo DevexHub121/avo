@@ -8,14 +8,12 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.PORT,
 });
-const localHost = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "Avo_Dev",
-});
-
-console.log();
+// const localHost = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "Avo_Dev",
+// });
 
 // Connect to MySQL
 db.connect((err) => {
