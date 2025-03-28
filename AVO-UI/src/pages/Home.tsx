@@ -3,7 +3,7 @@ import { FaBullhorn, FaMapMarkerAlt } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { CiMobile1 } from "react-icons/ci";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   // var settings = {
@@ -13,6 +13,7 @@ const Home = () => {
   //   slidesToShow: 1,
   //   slidesToScroll: 2,
   // };
+  const navigate = useNavigate();
   return (
     <div>
       <div className="haeder mb-5 overflow-hidden">
@@ -104,6 +105,7 @@ const Home = () => {
                 className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
@@ -111,6 +113,7 @@ const Home = () => {
               <button
                 className="btn btn-outline-light border text-dark"
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Join Now
               </button>
