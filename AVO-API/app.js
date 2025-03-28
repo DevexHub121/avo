@@ -2,9 +2,10 @@ const express = require("express");
 const db = require("./src/DB/db");
 const userRoutes = require("./src/Routes/routes");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const cron = require("node-cron");
 
@@ -38,6 +39,6 @@ app.use(function (request, response, next) {
   next();
 });
 
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running at http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
