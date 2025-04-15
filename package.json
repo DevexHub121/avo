@@ -22,7 +22,6 @@
     "bootstrap": "^5.3.3",
     "express": "^5.1.0",
     "font-awesome": "^4.7.0",
-    "heroku-ssl-redirect": "^0.1.1",
     "js-cookie": "^3.0.5",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
