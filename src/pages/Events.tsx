@@ -62,12 +62,12 @@ const Events = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -163,17 +163,137 @@ const Events = () => {
           </div>
         </div>
       </div>
+      <div className="container py-5 my-5">
+        {/* Header Section */}
+        <div className="text-center mb-5">
+          <h2 className="get fw-bold mb-3 text-black">
+            Discover Events in Your Area
+          </h2>
+          <p className="lead text-muted">
+            Explore unique experiences from local businesses
+          </p>
+        </div>
 
+        <div className="row g-5">
+          {/* Access Information */}
+          <div className="col-lg-6">
+            <div className="custom-panel h-100 rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <div className="d-flex align-items-center mb-4">
+                  <div className="icon-circle bg-primary bg-opacity-10 text-primary me-4">
+                    <i className="fas fa-door-open fa-2x"></i>
+                  </div>
+                  <h3 className="h4 mb-0">Event Access</h3>
+                </div>
+                <div className="ps-lg-5">
+                  <div className="d-flex mb-3">
+                    <div className="me-3 text-success">
+                      <i className="fas fa-check-circle fa-lg"></i>
+                    </div>
+                    <div>
+                      <p className="mb-0 fw-medium">
+                        Open access — no AVO membership required to view
+                      </p>
+                    </div>
+                  </div>
+                  <div className="d-flex">
+                    <div className="me-3 text-primary">
+                      <i className="fas fa-user-shield fa-lg"></i>
+                    </div>
+                    <div>
+                      <p className="mb-0 fw-medium">
+                        AVO members only can create events
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Event Types */}
+          <div className="col-lg-6">
+            <div className="custom-panel h-100 rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <div className="d-flex align-items-center mb-4">
+                  <div className="icon-circle bg-info bg-opacity-10 text-info me-4">
+                    <i className="fas fa-calendar-alt fa-2x"></i>
+                  </div>
+                  <h3 className="h4 mb-0">Event Types</h3>
+                </div>
+                <div className="row g-3 ps-lg-3">
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-gift text-success mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Free</h4>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-ticket-alt text-primary mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Ticketed</h4>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-dollar-sign text-warning mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Paid</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* What You'll Find Section */}
+        <div className="row mt-5">
+          <div className="col-12">
+            <div className="custom-panel-accent rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <h3 className="h2 text-center mb-4">What You'll Find</h3>
+                <div className="row g-4">
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-building text-primary mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">Business-hosted experiences</h4>
+                      <p className="small text-muted mb-0">
+                        Unique events from local vendors
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-tags text-info mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">
+                        Free, ticketed, or RSVP events
+                      </h4>
+                      <p className="small text-muted mb-0">
+                        Options for every preference
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-laptop-house text-success mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">Virtual or in-person options</h4>
+                      <p className="small text-muted mb-0">
+                        Attend however you prefer
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <section className="container py-5">
         <div className="row g-4">
           {images.map((src, index) => (
             <div key={index} className="col-12 col-sm-6 col-md-4">
               <div className="gallery-item">
-                <img
-                  src={src.src}
-                  alt={`img`}
-                  className="img-fluid"
-                />
+                <img src={src.src} alt={`img`} className="img-fluid" />
                 <div className="overlay">
                   <span>{src.content}</span>
                 </div>
@@ -221,12 +341,12 @@ const Events = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

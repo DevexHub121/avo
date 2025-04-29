@@ -60,12 +60,12 @@ const Home = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -181,7 +181,9 @@ const Home = () => {
               <div className="feature-box">
                 <FaTags />
                 <h4>Employee Discounts</h4>
-                <p>Exclusive deals for employees to save more.</p>
+                <p>
+                  Exclusive deals your team can redeem with a personal QR code.
+                </p>
               </div>
             </div>
             <div
@@ -193,7 +195,7 @@ const Home = () => {
                 <FaMapMarkerAlt />
 
                 <h4>Local Perks</h4>
-                <p>Special offers at local businesses and vendors.</p>
+                <p>Offers from nearby shops, cafes, gyms, and more</p>
               </div>
             </div>
             <div
@@ -205,7 +207,9 @@ const Home = () => {
                 <FaBullhorn />
 
                 <h4>Marketing Tools</h4>
-                <p>Powerful tools to help you grow your business.</p>
+                <p>
+                  Promote your business, events, and perks with built-in tools.
+                </p>
               </div>
             </div>
             <div
@@ -216,7 +220,10 @@ const Home = () => {
               <div className="feature-box">
                 <CiMobile1 />
                 <h4>App Features</h4>
-                <p>Easy-to-use mobile app with all essential features.</p>
+                <p>
+                  Access perks, events, and scan-ready QR codes — all in one
+                  platform.
+                </p>
               </div>
             </div>
           </div>
@@ -498,12 +505,12 @@ const Home = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

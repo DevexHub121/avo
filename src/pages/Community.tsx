@@ -48,12 +48,12 @@ const Community = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                  How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -256,11 +256,7 @@ const Community = () => {
           {/* Left Side: Image */}
           <div className="col-md-6 order-2 order-md-0">
             <div className="offer-img">
-              <img
-                src="/images/perks.jpg"
-                alt="Member"
-                className="img-fluid"
-              />
+              <img src="/images/perks.jpg" alt="Member" className="img-fluid" />
             </div>
           </div>
           {/* Right Side: Content */}
@@ -343,7 +339,7 @@ const Community = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

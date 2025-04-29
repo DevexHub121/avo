@@ -96,10 +96,10 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if(userDetails?.business_id){
+    if (userDetails?.business_id) {
       dispatch(getAllEmployees(userDetails?.business_id));
       dispatch(getAllOffers(userDetails?.business_id));
-      dispatch(getRedeemedCoupons({user_id: userDetails?.id}));
+      dispatch(getRedeemedCoupons({ user_id: userDetails?.id }));
     }
   }, [userDetails?.id, userDetails?.business_id, dispatch]);
 
@@ -147,30 +147,33 @@ const Dashboard = () => {
   };
   return (
     <div>
-      <div className="main-outer pt-3  h-100">
+      <div className="main-outer pt-3  vh-100">
         <div className="container">
           <Header />
           <h3 className="py-4  fw-semibold">Dashboard</h3>
           <DashboardSection />
         </div>
-        {userDetails?.role==="business_admin" ? 
-        <EmployeComponent
-          handleShowEmployee={handleShowEmployee}
-          employeesData={employeesData}
-          formatDateTime={formatDateTime}
-          handleViewEmployee={handleViewEmployee}
-          handleShowEmployeModal={handleShowEmployeModal}
-          handleEditEmployee={handleEditEmployee}
-        /> : null }
-        {userDetails?.role==="business_admin" ? <OfferComponent
-          handleShowOffer={handleShowOffer}
-          offersData={offersData}
-          formatDateTime={formatDateTime}
-          handleViewOffer={handleViewOffer}
-          handleShowOfferModal={handleShowOfferModal}
-          handleEditOffer={handleEditOffer}
-          handlePublishUnpublishOffer={handlePublishUnpublishOffer}
-        /> : null }
+        {userDetails?.role === "business_admin" ? (
+          <EmployeComponent
+            handleShowEmployee={handleShowEmployee}
+            employeesData={employeesData}
+            formatDateTime={formatDateTime}
+            handleViewEmployee={handleViewEmployee}
+            handleShowEmployeModal={handleShowEmployeModal}
+            handleEditEmployee={handleEditEmployee}
+          />
+        ) : null}
+        {userDetails?.role === "business_admin" ? (
+          <OfferComponent
+            handleShowOffer={handleShowOffer}
+            offersData={offersData}
+            formatDateTime={formatDateTime}
+            handleViewOffer={handleViewOffer}
+            handleShowOfferModal={handleShowOfferModal}
+            handleEditOffer={handleEditOffer}
+            handlePublishUnpublishOffer={handlePublishUnpublishOffer}
+          />
+        ) : null}
 
         <RedeemedCoupons
           handleShowOffer={handleShowOffer}
@@ -193,7 +196,7 @@ const Dashboard = () => {
           showOffer={showOffer}
           handleCloseOffer={handleCloseOffer}
           modalType={modalType}
-          offerItem={modalType==="create-offer" ? null: offerItem}
+          offerItem={modalType === "create-offer" ? null : offerItem}
         />
 
         <DeleteModal

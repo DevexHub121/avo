@@ -48,12 +48,12 @@ const HowItsWork = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -111,26 +111,28 @@ const HowItsWork = () => {
         className="text-dark text-center my-5 text-capitalize fw-bold get"
         data-aos="zoom-in"
       >
-        <span className="text-success">How</span> Its Work
+        <span className="text-success">How AVO</span> Works
       </h1>
       <div className="bg-clr graph" data-aos="zoom-in" data-aos-duration="3000">
         <div className="container my-5">
-          <div className="d-flex gap-5 align-items-center borderspace">
+          <div className="d-flex gap-3 align-items-center borderspace">
             <div className="circle1">
-              <h2 className="">START</h2>
+              <h2 className="">Business Track</h2>
             </div>
-            <div className="step">STEP1</div>
-            <div className="step">STEP2</div>
-            <div className="step">STEP3</div>
+            <div className="step">Sign up</div>
+            <div className="step">Add Employees</div>
+            <div className="step">Set perks</div>
+            <div className="step"> Promote Events</div>
           </div>
           <img className="img-fluid" src="/images/borderimg2.png" alt="img" />
           <div className="d-flex gap-5 align-items-center justify-content-between borderspace">
-            <div className="step">STEP1</div>
-            <div className="step">STEP2</div>
-            <div className="step">STEP3</div>
+            <div className="step">Sign up</div>
+            <div className="step">Get QR code</div>
+            <div className="step">Explore events</div>
+            <div className="step">Redeem perks</div>
 
             <div className="circle1">
-              <h2 className="">END</h2>
+              <h2 className="">Community Track</h2>
             </div>
           </div>
         </div>
@@ -403,12 +405,12 @@ const HowItsWork = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

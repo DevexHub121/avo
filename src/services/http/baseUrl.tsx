@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 console.log("REACT_APP_ADV_URL => ", process.env.REACT_APP_ADV_URL);
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_ADV_URL,
+  baseURL: "https://avoapi-befee013666a.herokuapp.com",
 
   headers: {
     Accept: "application/json",

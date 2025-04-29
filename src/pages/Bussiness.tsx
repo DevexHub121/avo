@@ -7,6 +7,11 @@ import { FaShareAlt } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+// Font Awesome CSS
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Bussiness = () => {
   return (
@@ -55,12 +60,12 @@ const Bussiness = () => {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -94,16 +99,20 @@ const Bussiness = () => {
           </div>
         </nav>
       </div>
-      <div className="bg">
+      <div className="bg py">
         <h1
-          className="text-dark text-center my-5 text-capitalize fw-bold"
+          className="text-dark text-center  text-capitalize fw-bold pt-5"
           data-aos="zoom-in"
         >
-          <span className="text-success">Our</span> Bussiness
+          <span className="text-success">Become an Avo </span> Vendor
         </h1>
+
+        <p className="text-center h5 pb-5">
+          Attract new customers, reward your team, and grow your business.
+        </p>
       </div>
       {/* Business Plans Section */}
-      <section className="business-plans py-5 bg-white">
+      {/* <section className="business-plans py-5 bg-white">
         <div className="container ">
           <h2 className="text-center fw-bold mb-5 get">Tiered Benefits</h2>
           <div className="row justify-content-between gy-3 ">
@@ -165,9 +174,144 @@ const Bussiness = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="py-5 bg-light">
+      <div className="container py-5">
+        {/* Main Header */}
+        <div className="text-center mb-5">
+          <h2 className=" fw-bold  mb-3 get text-dark">
+            Vendor Partnership <span className="text-success">Benefits </span>
+          </h2>
+
+          <p className="lead">
+            Enhance your business while supporting your community
+          </p>
+        </div>
+
+        {/* Value Props Cards */}
+        <div className="row g-4">
+          {/* Retain Employees */}
+          <div className="col-md-6 col-lg-4">
+            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+              <div className="card-body p-4 text-center" data-aos="flip-up">
+                <div className="icon-circle bg-primary-light text-primary mb-4">
+                  <i className="fas fa-user-tie fa-lg"></i>
+                </div>
+                <h3 className="h4 mb-3">Retain Employees</h3>
+                <p className="text-muted">Retain employees with custom perks</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Brand Promotion */}
+          <div className="col-md-6 col-lg-4">
+            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+              <div className="card-body p-4 text-center" data-aos="flip-up">
+                <div className="icon-circle bg-success-light text-success mb-4">
+                  <i className="fas fa-bullhorn fa-lg"></i>
+                </div>
+                <h3 className="h4 mb-3">Brand Promotion</h3>
+                <p className="text-muted">
+                  Host events that promote your brand
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Local Visibility */}
+          <div className="col-md-6 col-lg-4">
+            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+              <div className="card-body p-4 text-center" data-aos="flip-up">
+                <div className="icon-circle bg-info-light text-info mb-4">
+                  <i className="fas fa-map-marker-alt fa-lg"></i>
+                </div>
+                <h3 className="h4 mb-3">Local Visibility</h3>
+                <p className="text-muted">Appear in local vendor listings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="row mt-5 g-4">
+          <div className="col-md-6" data-aos="zoom-in">
+            <div className="p-4 bg-light rounded-4 h-100">
+              <div className="d-flex">
+                <div className="me-4 text-success">
+                  <i className="fas fa-calendar-check fa-2x"></i>
+                </div>
+                <div>
+                  <h3 className="h4">Host Events</h3>
+                  <p className="text-muted mb-0">
+                    Create engaging experiences that showcase your business
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-6" data-aos="zoom-in">
+            <div className="p-4 bg-light rounded-4 h-100">
+              <div className="d-flex">
+                <div className="me-4 text-success">
+                  <i className="fas fa-store fa-2x"></i>
+                </div>
+                <div>
+                  <h3 className="h4">Appear in Vendor Listings</h3>
+                  <p className="text-muted mb-0">
+                    Get discovered by potential customers in our directory
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Logo Showcase */}
+        <div className="text-center mt-5 pt-4 " data-aos="zoom-in">
+          <div className=" p-4 rounded-4 bg">
+            <i className="fas fa-crown fa-3x text-dark mb-3"></i>
+            <h3 className="h2 mb-3">Logo Showcase</h3>
+            <p className="lead mb-4">
+              Featured placement for "Participating Vendors"
+            </p>
+            <div className="d-flex flex-wrap justify-content-center gap-4">
+              {/* Placeholder for vendor logos */}
+              <div className="bg-white p-3 rounded-3 shadow-sm">
+                <div className="text-muted">Your Logo Here</div>
+              </div>
+              <div className="bg-white p-3 rounded-3 shadow-sm">
+                <div className="text-muted">Your Logo Here</div>
+              </div>
+              <div className="bg-white p-3 rounded-3 shadow-sm">
+                <div className="text-muted">Your Logo Here</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Marketing Visibility */}
+      <div className="mt-5 pt-4 bg-success text-white p-4 p-md-5   ">
+        <div className="container ">
+          <div className="row align-items-center ">
+            <div className="col-md-8" data-aos="fade-right">
+              <h3 className="h2 mb-3">Marketing Visibility</h3>
+              <p className="lead mb-0">
+                Based on businesses who opt into marketing visibility
+              </p>
+            </div>
+            <div
+              className="col-md-4 text-md-end mt-3 mt-md-0"
+              data-aos="fade-left"
+            >
+              <button className="btn btn-light px-4">
+                Learn More <i className="fas fa-arrow-right ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <section className="py-5 bg-light">
         <div className="container">
           <h2 className="fw-bold text-center mb-5 get">Marketing Services</h2>
           <div className="row justify-content-center gy-4 py-5">
@@ -223,8 +367,139 @@ const Bussiness = () => {
             </div>
           </div>
         </div>
-      </section>
-      <h2 className="fw-bold text-center my-5 get">Success Stories</h2>
+      </section> */}
+
+      {/* pricing */}
+
+      <div className="container py-5 my-5">
+        {/* Pricing Header */}
+        <div className="text-center mb-5">
+          <h2 className="get fw-bold text-black mb-3">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="lead">Start for free during our launch phase</p>
+        </div>
+
+        {/* Pricing Tabs */}
+
+        {/* Pricing Content */}
+        <div className="tab-content" id="pricing-tabContent">
+          {/* Business Pricing */}
+          <div
+            className="tab-pane fade show active"
+            id="business-pricing"
+            role="tabpanel"
+          >
+            <div className="row justify-content-center">
+              {/* Launch Phase */}
+              <div className="col-lg-5 mb-4 mb-lg-0">
+                <div className="card card2 h-100 border-0 shadow-lg rounded-4">
+                  <div className="card-header bg-primary text-white py-4 rounded-top-4">
+                    <h3 className="h2 mb-0 ">Launch Phase</h3>
+                  </div>
+                  <div className="card-body p-4">
+                    <div className=" mb-4">
+                      <span className="display-5 fw-bold">Free</span>
+                      <span className="text-muted">/month</span>
+                    </div>
+                    <ul className="list-unstyled mb-4">
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        Free for first 25–50 businesses
+                      </li>
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        All features included
+                      </li>
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        Priority onboarding
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="card-footer bg-transparent border-0 pb-4 "></div>
+                </div>
+              </div>
+
+              {/* Regular Pricing */}
+              <div className="col-lg-5">
+                <div className="card card2 h-100 border-0 shadow-lg rounded-4">
+                  <div className="card-header bg-dark text-white py-4 rounded-top-4">
+                    <h3 className="h2 mb-0 ">Standard Plan</h3>
+                  </div>
+                  <div className="card-body p-4">
+                    <div className=" mb-4">
+                      <span className="display-5 fw-bold">$5-10</span>
+                      <span className="text-muted">/month</span>
+                    </div>
+                    <ul className="list-unstyled mb-4">
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        After initial launch phase
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Community Pricing */}
+          <div className="tab-pane fade" id="community-pricing" role="tabpanel">
+            <div className="row justify-content-center">
+              <div className="col-lg-5">
+                <div className="card h-100 border-0 shadow-lg rounded-4">
+                  <div className="card-header bg-info text-white py-4 rounded-top-4">
+                    <h3 className="h2 mb-0 text-center">
+                      Community Membership
+                    </h3>
+                  </div>
+                  <div className="card-body p-4">
+                    <div className="text-center mb-4">
+                      <span className="display-3 fw-bold">$5-10</span>
+                      <span className="text-muted">/month</span>
+                    </div>
+                    <ul className="list-unstyled mb-4">
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        Access to all partner perks
+                      </li>
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        Exclusive community events
+                      </li>
+                      <li className="mb-3">
+                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
+                        Seamless Stripe integration
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="card-footer bg-transparent border-0 pb-4 text-center">
+                    <button className="btn btn-info text-white px-4" disabled>
+                      Coming Soon
+                    </button>
+                    <p className="small text-muted mt-2 mb-0">
+                      Tyler & Dori to provide Stripe details
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stripe Integration Note */}
+        <div className="text-center mt-5 pt-3">
+          <div className="d-inline-block bg-light p-3 rounded-3">
+            <i className="fab fa-stripe fa-3x text-primary mb-2"></i>
+            <h4 className="h5 mb-2">Secure Payment Processing</h4>
+            <p className="small mb-0">
+              All payments processed securely via Stripe
+            </p>
+          </div>
+        </div>
+      </div>
+      <h2 className="fw-bold text-center my-5 get">Testimonials</h2>
       <Slider
         className="container story-slider"
         {...{
@@ -446,7 +721,7 @@ const Bussiness = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

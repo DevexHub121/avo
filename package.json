@@ -19,7 +19,7 @@
     "ajv-keywords": "^5.1.0",
     "aos": "^2.3.4",
     "axios": "^1.8.4",
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^5.3.5",
     "express": "^5.1.0",
     "font-awesome": "^4.7.0",
     "js-cookie": "^3.0.5",
@@ -42,10 +42,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "serve -s build"
   },
   "engines": {
     "node": "22.11.0",
