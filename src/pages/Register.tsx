@@ -16,16 +16,22 @@ interface SignUpFormData {
   businessRole: string;
   website: string;
   phone: string;
-  companyName: string;
+  businessName: string;
   address: string;
   email: string;
   password: string;
   logo: string;
+  businessAddress: string;
+  businessCity: string;
+  businessState: string;
+  businessCountry: string;
+  pinCode: string;
 }
 
 const Register = () => {
   const [file, setFile] = useState(null);
   const [imgFile, setImgFile] = useState(null);
+  const [selectedRole, setSelectedRole] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {
@@ -38,6 +44,13 @@ const Register = () => {
   } = useForm<SignUpFormData>();
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
+    let logoUrl = "";
+    if (file) {
+      const formData: any = new FormData();
+      formData.append("image", file);
+      const res: any = await dispatch(uploadLogoImage(formData)).unwrap();
+      logoUrl = res.url;
+    }
     // Create FormData for file upload (and other fields)
     const payload = {
       name: `${data.firstName} ${data.lastName}`,
@@ -46,9 +59,13 @@ const Register = () => {
       businessRole: data.businessRole,
       website: data.website,
       number: data.phone,
-      companyName: data.companyName,
-      profile_photo: data.logo,
-      address: data.address,
+      business_name: data.businessName,
+      profile_photo: logoUrl,
+      business_address: data.address,
+      business_city: data.businessCity,
+      business_state: data.businessState,
+      business_country: data.businessCountry,
+      business_pincode: data.pinCode,
     };
     dispatch(signUpUser({ payload: payload, navigate }))
       .unwrap()
@@ -62,17 +79,18 @@ const Register = () => {
     setImgFile(URL.createObjectURL(fileData));
   };
 
-  const handleFileUpload = () => {
-    const formData: any = new FormData();
-    formData.append("image", file);
-    if (file) {
-      dispatch(uploadLogoImage(formData))
-        .unwrap()
-        .then((res: any) => {
-          setValue("logo", res.url, { shouldValidate: true });
-        });
-    }
-  };
+  // const handleFileUpload = () => {
+  //   const formData: any = new FormData();
+  //   formData.append("image", file);
+  //   if (file) {
+  //     dispatch(uploadLogoImage(formData))
+  //       .unwrap()
+  //       .then((res: any) => {
+  //         setValue("logo", res.url, { shouldValidate: true });
+  //       });
+  //   }
+  // };
+
 
   const handleDeleteImage = () => {
     setImgFile(null);
@@ -121,7 +139,7 @@ const Register = () => {
                       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                     }}
                   >
-                    <h4 className="fw-bold mb-4">Employer Sign-Up</h4>
+                    <h4 className="fw-bold mb-4">Sign-Up</h4>
                     <Form onSubmit={handleSubmit(onSubmit)}>
                       <Row>
                         <Col md={4}>
@@ -159,76 +177,20 @@ const Register = () => {
                             <Form.Select
                               {...register("businessRole", { required: true })}
                               isInvalid={!!errors.businessRole}
+                              onChange={(e) => {
+                                setSelectedRole(e.target.value);
+                                setValue("businessRole", e.target.value, {
+                                  shouldValidate: true,
+                                });
+                              }}
                             >
-                              <option value="">Select your job role</option>
-                              <option value="developer">employees</option>
-                              <option value="designer">Community</option>
-                              <option value="manager">admin</option>
-                              <option value="other">Other</option>
+                              <option value="communit-member">
+                                Community Member
+                              </option>
+                              <option value="business-admin">
+                                Business Admin
+                              </option>
                             </Form.Select>
-                            <Form.Control.Feedback type="invalid">
-                              This field is required
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={6}>
-                          <Form.Group controlId="formAddress" className="mb-3">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Enter your Address"
-                              {...register("address", { required: true })}
-                              isInvalid={!!errors.address}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              This field is required
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                        <Col md={6}>
-                          <Form.Group controlId="formWebsite" className="mb-3">
-                            <Form.Label>Website</Form.Label>
-                            <Form.Control
-                              type="url"
-                              placeholder="Enter your website URL"
-                              {...register("website", { required: true })}
-                              isInvalid={!!errors.website}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              This field is required
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={6}>
-                          <Form.Group className="mb-3">
-                            <Form.Label>Phone Number</Form.Label>
-                            <InputGroup>
-                              <InputGroup.Text>🇺🇸 +1</InputGroup.Text>
-                              <Form.Control
-                                type="tel"
-                                placeholder="Phone Number"
-                                {...register("phone", { required: true })}
-                                isInvalid={!!errors.phone}
-                              />
-                              <Form.Control.Feedback type="invalid">
-                                This field is required
-                              </Form.Control.Feedback>
-                            </InputGroup>
-                          </Form.Group>
-                        </Col>
-                        <Col md={6}>
-                          <Form.Group className="mb-3">
-                            <Form.Label>Company Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Company Name"
-                              {...register("companyName", { required: true })}
-                              isInvalid={!!errors.companyName}
-                            />
                             <Form.Control.Feedback type="invalid">
                               This field is required
                             </Form.Control.Feedback>
@@ -252,9 +214,41 @@ const Register = () => {
                           </Form.Group>
                         </Col>
                         <Col md={6}>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Phone Number</Form.Label>
+                            <InputGroup>
+                              <InputGroup.Text>🇺🇸 +1</InputGroup.Text>
+                              <Form.Control
+                                type="tel"
+                                placeholder="Phone Number"
+                                {...register("phone", { required: true })}
+                                isInvalid={!!errors.phone}
+                              />
+                              <Form.Control.Feedback type="invalid">
+                                This field is required
+                              </Form.Control.Feedback>
+                            </InputGroup>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                          <Form.Group controlId="formAddress" className="mb-3">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter your Address"
+                              {...register("address", { required: true })}
+                              isInvalid={!!errors.address}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              This field is required
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                          {/* */}
                           {imgFile === null ? (
                             <Form.Group className="mb-3">
-                              <Form.Label>Upload Logo</Form.Label>
+                              <Form.Label>Profile Photo</Form.Label>
                               <Controller
                                 name="logo"
                                 control={control}
@@ -280,7 +274,7 @@ const Register = () => {
                                       className="d-flex align-items-center cursor-pointer"
                                     >
                                       <FaUpload className="me-2" />
-                                      <span>Upload logo</span>
+                                      <span>Upload Photo</span>
                                     </label>
                                   </div>
                                 )}
@@ -320,6 +314,7 @@ const Register = () => {
                           )}
                         </Col>
                       </Row>
+                      <Row></Row>
                       <Row>
                         <Col md={6}>
                           <Form.Group className="mb-3">
@@ -348,18 +343,121 @@ const Register = () => {
                             </small>
                           </Form.Group>
                         </Col>
-                        <Col md={6}>
-                          <p
-                            className="text-secondary"
-                            style={{ color: "#7a7777" }}
-                          >
-                            By uploading your logo, you hereby agree and consent
-                            to allow Use Avo to utilize the company logo for
-                            www.useavo.com and other marketing initiatives aimed
-                            at enhancing the development of the Use Avo
-                            platform.
-                          </p>
-                        </Col>
+                      </Row>
+                      <Row>
+                        {selectedRole === "business-admin" && (
+                          <>
+                            <Row>
+                              <Col md={6}>
+                                <h2
+                                  className="mb-3 font-bold"
+                                  style={{ color: "black" }}
+                                >
+                                  Business Details
+                                </h2>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Business Name</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Business Name"
+                                    {...register("businessName", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.businessName}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Business Address</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Business Address"
+                                    {...register("businessAddress", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.businessAddress}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Country</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Country"
+                                    {...register("businessCountry", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.businessCountry}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>State</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="State"
+                                    {...register("businessState", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.businessState}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>City</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="City"
+                                    {...register("businessCity", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.businessCity}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Pin Code</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Pin Code"
+                                    {...register("pinCode", {
+                                      required: true,
+                                    })}
+                                    isInvalid={!!errors.pinCode}
+                                  />
+                                  <Form.Control.Feedback type="invalid">
+                                    This field is required
+                                  </Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+                            </Row>
+                          </>
+                        )}
                       </Row>
                       <div className="d-flex gap-2 align-items-center">
                         <Button
