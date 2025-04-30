@@ -299,6 +299,13 @@ input[type="number"]::-webkit-outer-spin-button {
 .subscribe:hover {
   background-color: #000 !important;
 }
+
+@media screen and (max-width: 1200px) {
+  .step {
+    width: 50% !important;
+    /* background-size: cover; */
+  }
+}
 @media screen and (max-width: 1024px) {
   .font4 {
     font-size: 3rem;
@@ -346,12 +353,33 @@ input[type="number"]::-webkit-outer-spin-button {
   .table-responsive {
     max-width: 251px;
   }
+  .step {
+    width: 90% !important;
+    /* background-size: cover; */
+  }
 }
 @media screen and (max-width: 769px) {
   .dropend:hover > .dropdown-menu {
     position: absolute;
     top: 0;
     left: 100%;
+  }
+
+  .mob-block {
+    flex-direction: column;
+  }
+
+  .haeder {
+    margin-bottom: 0px !important;
+  }
+  .content-banner h1 {
+    text-align: center !important;
+  }
+  .mob-center {
+    text-align: center;
+  }
+  .card2 {
+    width: 100% !important;
   }
   .impact::after {
     top: -17px !important;
@@ -407,6 +435,9 @@ input[type="number"]::-webkit-outer-spin-button {
   .contact-info::before {
     bottom: -8px;
     right: -8px;
+  }
+  .content-banner h1 {
+    font-size: 30px;
   }
 }
 /*slide*/
@@ -958,3 +989,11 @@ a.nav-link:hover {
 }
 
 /* Rest of your existing CSS */
+.value-prop:hover {
+  background-color: #0bbf64; /* Bootstrap primary color */
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.green-prop {
+  background-color: #0bbf64; /* Bootstrap primary color */
+}

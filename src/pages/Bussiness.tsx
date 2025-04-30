@@ -15,7 +15,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Bussiness = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       {/* Header Section */}
       <div className="header overflow-hidden">
         <nav
@@ -112,7 +112,7 @@ const Bussiness = () => {
         </p>
       </div>
       {/* Business Plans Section */}
-      {/* <section className="business-plans py-5 bg-white">
+      <section className="business-plans py-5 bg-white">
         <div className="container ">
           <h2 className="text-center fw-bold mb-5 get">Tiered Benefits</h2>
           <div className="row justify-content-between gy-3 ">
@@ -174,7 +174,7 @@ const Bussiness = () => {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       <div className="container py-5">
         {/* Main Header */}
@@ -192,7 +192,7 @@ const Bussiness = () => {
         <div className="row g-4">
           {/* Retain Employees */}
           <div className="col-md-6 col-lg-4">
-            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+            <div className="h-100 border-0 shadow-sm rounded-4 hover-effect">
               <div className="card-body p-4 text-center" data-aos="flip-up">
                 <div className="icon-circle bg-primary-light text-primary mb-4">
                   <i className="fas fa-user-tie fa-lg"></i>
@@ -205,7 +205,7 @@ const Bussiness = () => {
 
           {/* Brand Promotion */}
           <div className="col-md-6 col-lg-4">
-            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+            <div className=" h-100 border-0 shadow-sm rounded-4 hover-effect">
               <div className="card-body p-4 text-center" data-aos="flip-up">
                 <div className="icon-circle bg-success-light text-success mb-4">
                   <i className="fas fa-bullhorn fa-lg"></i>
@@ -220,7 +220,7 @@ const Bussiness = () => {
 
           {/* Local Visibility */}
           <div className="col-md-6 col-lg-4">
-            <div className="card h-100 border-0 shadow-sm rounded-4 hover-effect">
+            <div className=" h-100 border-0 shadow-sm rounded-4 hover-effect">
               <div className="card-body p-4 text-center" data-aos="flip-up">
                 <div className="icon-circle bg-info-light text-info mb-4">
                   <i className="fas fa-map-marker-alt fa-lg"></i>
@@ -269,8 +269,8 @@ const Bussiness = () => {
 
         {/* Logo Showcase */}
         <div className="text-center mt-5 pt-4 " data-aos="zoom-in">
-          <div className=" p-4 rounded-4 bg">
-            <i className="fas fa-crown fa-3x text-dark mb-3"></i>
+          <div className="  rounded-4 bg">
+            <i className="fas fa-crown fa-3x text- mb-3"></i>
             <h3 className="h2 mb-3">Logo Showcase</h3>
             <p className="lead mb-4">
               Featured placement for "Participating Vendors"
@@ -291,7 +291,7 @@ const Bussiness = () => {
         </div>
       </div>
       {/* Marketing Visibility */}
-      <div className="mt-5 pt-4 bg-success text-white p-4 p-md-5   ">
+      <div className="mt-5 pt-4 bg-success text-white p-4 p-md-5 mob-center  ">
         <div className="container ">
           <div className="row align-items-center ">
             <div className="col-md-8" data-aos="fade-right">
@@ -311,7 +311,7 @@ const Bussiness = () => {
           </div>
         </div>
       </div>
-      {/* <section className="py-5 bg-light">
+      <section className="py-5 bg-light">
         <div className="container">
           <h2 className="fw-bold text-center mb-5 get">Marketing Services</h2>
           <div className="row justify-content-center gy-4 py-5">
@@ -367,7 +367,7 @@ const Bussiness = () => {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* pricing */}
 
@@ -393,13 +393,13 @@ const Bussiness = () => {
             <div className="row justify-content-center">
               {/* Launch Phase */}
               <div className="col-lg-5 mb-4 mb-lg-0">
-                <div className="card card2 h-100 border-0 shadow-lg rounded-4">
+                <div className=" card2 h-100 border-0 shadow-lg rounded-4">
                   <div className="card-header bg-primary text-white py-4 rounded-top-4">
-                    <h3 className="h2 mb-0 ">Launch Phase</h3>
+                    <h3 className="h2 mb-0 mx-3">Launch Phase</h3>
                   </div>
                   <div className="card-body p-4">
                     <div className=" mb-4">
-                      <span className="display-5 fw-bold">Free</span>
+                      <span className="display-6 fw-bold">Free</span>
                       <span className="text-muted">/month</span>
                     </div>
                     <ul className="list-unstyled mb-4">
@@ -417,19 +417,18 @@ const Bussiness = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="card-footer bg-transparent border-0 pb-4 "></div>
                 </div>
               </div>
 
               {/* Regular Pricing */}
               <div className="col-lg-5">
-                <div className="card card2 h-100 border-0 shadow-lg rounded-4">
+                <div className=" card2 h-100 border-0 shadow-lg rounded-4">
                   <div className="card-header bg-dark text-white py-4 rounded-top-4">
-                    <h3 className="h2 mb-0 ">Standard Plan</h3>
+                    <h3 className="h2 mb-0 h2 mb-0 mx-3 ">Standard Plan</h3>
                   </div>
                   <div className="card-body p-4">
                     <div className=" mb-4">
-                      <span className="display-5 fw-bold">$5-10</span>
+                      <span className="display-6 fw-bold">$5-10</span>
                       <span className="text-muted">/month</span>
                     </div>
                     <ul className="list-unstyled mb-4">

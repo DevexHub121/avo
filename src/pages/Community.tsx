@@ -1,5 +1,6 @@
 import React from "react";
 import "font-awesome/css/font-awesome.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 const Community = () => {
   return (
@@ -48,7 +49,7 @@ const Community = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                  How AVO Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -115,10 +116,10 @@ const Community = () => {
           <span className="text-success">Our</span> Community
         </h1>
       </div>
-      <section id="heading-with-image" className="py-5 bg-light">
+      {/* <section id="heading-with-image" className="py-5 bg-light">
         <div className="container">
           <div className="row align-items-center">
-            {/* Left Side: Image */}
+     
             <div className="col-md-6 text-center mb-4 mb-md-0">
               <img
                 src="/images/10.jpg"
@@ -126,7 +127,7 @@ const Community = () => {
                 className="img-fluid rounded"
               />
             </div>
-            {/* Right Side: Content */}
+      
             <div className="col-md-6">
               <h2
                 className="display-6 text-dark mb-4 fw-bold"
@@ -154,12 +155,52 @@ const Community = () => {
             </div>
           </div>
         </div>
+      </section> */}
+      <section className="container my-5 py-5">
+        <div className="text-center mb-5">
+          <h2 className="fw-bold get">Why Join AVO Events?</h2>
+          <p className="text-muted">
+            Discover the benefits of supporting your community
+          </p>
+        </div>
+        <div className="row text-center">
+          <div className="col-md-4 mb-4">
+            <div className="p-4 shadow-sm rounded bg-light h-100">
+              <i className="fas fa-hand-holding-heart fa-3x text-success mb-3"></i>
+              <h4 className="fw-bold">Support Local</h4>
+              <p className="text-muted">
+                Help small businesses grow and thrive by participating in their
+                events.
+              </p>
+            </div>
+          </div>
+          <div className="col-md-4 mb-4">
+            <div className="p-4 shadow-sm rounded bg-light h-100">
+              <i className="fas fa-gift fa-3x text-primary mb-3"></i>
+              <h4 className="fw-bold">Get Perks</h4>
+              <p className="text-muted">
+                Enjoy exclusive perks and rewards just by being a part of the
+                AVO community.
+              </p>
+            </div>
+          </div>
+          <div className="col-md-4 mb-4">
+            <div className="p-4 shadow-sm rounded bg-light h-100">
+              <i className="fas fa-bullhorn fa-3x text-warning mb-3"></i>
+              <h4 className="fw-bold">Event Visibility</h4>
+              <p className="text-muted">
+                Promote your events and get discovered by an active, engaged
+                audience.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section id="benefits" className="container py-5">
-        {/* Layout 1: Image Left, Content Right */}
+      {/* <section id="benefits" className="container py-5">
+    
         <div className="row align-items-center mb-5 justify-content-between">
-          {/* Left Side: Image */}
+        
           <div className="col-md-6">
             <div className="offer-img">
               <img
@@ -169,7 +210,7 @@ const Community = () => {
               />
             </div>
           </div>
-          {/* Right Side: Content */}
+  
           <div className="col-md-6">
             <h2
               className="display-6 text-dark mb-4 fw-bold"
@@ -204,9 +245,9 @@ const Community = () => {
           </div>
         </div>
 
-        {/* Layout 2: Image Right, Content Left */}
+   
         <div className="row align-items-center mb-5 flex-row-reverse justify-content-between">
-          {/* Left Side: Content */}
+      
           <div className="col-md-6 order-md-2">
             <h2
               className="display-6 text-dark mb-4 fw-bold"
@@ -239,7 +280,7 @@ const Community = () => {
               </li>
             </ul>
           </div>
-          {/* Right Side: Image */}
+     
           <div className="col-md-6 order-md-1">
             <div className="offer-img">
               <img
@@ -251,15 +292,14 @@ const Community = () => {
           </div>
         </div>
 
-        {/* Layout 3: Image Left, Content Right */}
-        <div className="row align-items-center justify-content-between">
-          {/* Left Side: Image */}
+          <div className="row align-items-center justify-content-between">
+       
           <div className="col-md-6 order-2 order-md-0">
             <div className="offer-img">
               <img src="/images/perks.jpg" alt="Member" className="img-fluid" />
             </div>
           </div>
-          {/* Right Side: Content */}
+      
           <div className="col-md-6">
             <h2
               className="display-6 text-dark mb-4 fw-bold"
@@ -293,7 +333,181 @@ const Community = () => {
             </ul>
           </div>
         </div>
+      </section> */}
+      <section className="py-5 bg-light">
+        <div className="container">
+          <h2 className="text-center mb-4 get fw-bold">Value Props</h2>
+          <div className="d-flex  justify-content-between align-items-center mob-block">
+            <div className="row justify-content-center text-center">
+              <div className="col-md-4 mb-4">
+                <div className="p-4 border rounded h-100 shadow-lg value-prop">
+                  <h5 className="mb-2 fw-bold">Exclusive Deals</h5>
+                  <p className="mb-0">
+                    Enjoy exclusive deals from businesses that opt-in.
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-4 ">
+                <div className="p-4 border rounded h-100 shadow-lg value-prop  ">
+                  <h5 className="mb-2 fw-bold">Local Events</h5>
+                  <p className="mb-0">Attend local events and experiences.</p>
+                </div>
+              </div>
+              <div className="col-md-8 mb-4">
+                <div
+                  className="p-4 border rounded h-100 shadow-lg value-prop "
+                  style={{
+                    transition: "background-color  red",
+                  }}
+                >
+                  <h5 className="mb-2 fw-bold">Stay Connected</h5>
+                  <p className="mb-0">
+                    Stay connected with what’s happening nearby.
+                  </p>
+                </div>
+              </div>
+              <p>
+                <b>Businesses</b> choose whether to share perks with community
+                users during sign up
+              </p>
+            </div>
+
+            <div className="">
+              {" "}
+              <img
+                className="img-fluid rounded"
+                src="/images/img1.jpg"
+                alt="img"
+              />
+            </div>
+          </div>
+        </div>
       </section>
+      <div className="container py-5 my-5">
+        {/* Header Section */}
+        <div className="text-center mb-5">
+          <h2 className="get fw-bold mb-3 text-black">
+            Discover Events in Your Area
+          </h2>
+          <p className="lead text-muted">
+            Explore unique experiences from local businesses
+          </p>
+        </div>
+
+        <div className="row g-5">
+          {/* Access Information */}
+          <div className="col-lg-6">
+            <div className="custom-panel h-100 rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <div className="d-flex align-items-center mb-4">
+                  <div className="icon-circle bg-primary bg-opacity-10 text-primary me-4">
+                    <i className="fas fa-door-open fa-2x"></i>
+                  </div>
+                  <h3 className="h4 mb-0">Event Access</h3>
+                </div>
+                <div className="ps-lg-5">
+                  <div className="d-flex mb-3">
+                    <div className="me-3 text-success">
+                      <i className="fas fa-check-circle fa-lg"></i>
+                    </div>
+                    <div>
+                      <p className="mb-0 fw-medium">
+                        Open access — no AVO membership required to view
+                      </p>
+                    </div>
+                  </div>
+                  <div className="d-flex">
+                    <div className="me-3 text-primary">
+                      <i className="fas fa-user-shield fa-lg"></i>
+                    </div>
+                    <div>
+                      <p className="mb-0 fw-medium">
+                        AVO members only can create events
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Event Types */}
+          <div className="col-lg-6">
+            <div className="custom-panel h-100 rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <div className="d-flex align-items-center mb-4">
+                  <div className="icon-circle bg-info bg-opacity-10 text-info me-4">
+                    <i className="fas fa-calendar-alt fa-2x"></i>
+                  </div>
+                  <h3 className="h4 mb-0">Event Types</h3>
+                </div>
+                <div className="row g-3 ps-lg-3">
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-gift text-success mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Free</h4>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-ticket-alt text-primary mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Ticketed</h4>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-3 bg-light rounded-3 h-100">
+                      <i className="fas fa-dollar-sign text-warning mb-2 fa-2x"></i>
+                      <h4 className="h6 mb-0">Paid</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* What You'll Find Section */}
+        <div className="row mt-5">
+          <div className="col-12">
+            <div className="custom-panel-accent rounded-4">
+              <div className="panel-body p-4 p-lg-5">
+                <h3 className="h2 text-center mb-4">What You'll Find</h3>
+                <div className="row g-4">
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-building text-primary mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">Business-hosted experiences</h4>
+                      <p className="small text-muted mb-0">
+                        Unique events from local vendors
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-tags text-info mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">
+                        Free, ticketed, or RSVP events
+                      </h4>
+                      <p className="small text-muted mb-0">
+                        Options for every preference
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="text-center p-4 bg-white rounded-3 h-100">
+                      <i className="fas fa-laptop-house text-success mb-3 fa-2x"></i>
+                      <h4 className="h5 mb-2">Virtual or in-person options</h4>
+                      <p className="small text-muted mb-0">
+                        Attend however you prefer
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <footer className="footer text-light pt-5 pb-4 mt-5 overflow-hidden">
         <div className="container text-center text-md-start">
