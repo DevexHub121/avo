@@ -104,7 +104,7 @@ const Bussiness = () => {
           className="text-dark text-center  text-capitalize fw-bold pt-5"
           data-aos="zoom-in"
         >
-          <span className="text-success">Become an Avo </span> Vendor
+          <span className="text-success">Become </span> an Avo Vendor
         </h1>
 
         <p className="text-center h5 pb-5">
@@ -114,64 +114,67 @@ const Bussiness = () => {
       {/* Business Plans Section */}
       <section className="business-plans py-5 bg-white">
         <div className="container ">
-          <h2 className="text-center fw-bold mb-5 get">Tiered Benefits</h2>
-          <div className="row justify-content-between gy-3 ">
-            {[
-              {
-                name: "FREE",
-                price: "$0/month",
-                border: "border-success",
-                features: [true, false, false],
-              },
-              {
-                name: "BASIC",
-                price: "$19/month",
-                border: "border-warning",
-                features: [true, true, false],
-              },
-              {
-                name: "ADVANCED",
-                price: "$49/month",
-                border: "border-danger",
-                features: [true, true, true],
-              },
-              {
-                name: "PREMIUM",
-                price: "$99/month",
-                border: "border-primary",
-                features: [true, true, true],
-              },
-            ].map((plan, index) => (
-              <div key={index} className="col-lg-3 col-md-6 ">
-                <div
-                  className={`pricing-card container
+          <h2 className="text-center fw-bold get">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="text-center  mb-5">
+            Start for free during our launch phase
+          </p>
+          <div className="d-flex gap-5">
+            <div className="price-box">
+              {[
+                {
+                  name: "Launch Phase",
+                  price: "Free/month",
+                  border: "border-success",
+                  features: [true, false, false],
+                },
+                // {
+                //   name: "Standard Plan",
+                //   price: "$5-10/month",
+                //   border: "border-warning",
+                //   features: [true, true, false],
+                // },
+                // {
+                //   name: "Stripe",
+                //   price: "Secure Payment Processing",
+                //   border: "border-danger",
+                //   features: [true, true, true],
+                // },
+                // {
+                //   name: "PREMIUM",
+                //   price: "$99/month",
+                //   border: "border-primary",
+                //   features: [true, true, true],
+                // },
+              ].map((plan, index) => (
+                <div key={index} className="main-col ">
+                  <div
+                    className={`pricing-card container
                      mx-auto ${plan.border} border-top border-5 p-4 text-center`}
-                >
-                  <h3>{plan.name}</h3>
-                  <p className="price fw-bold">{plan.price}</p>
-                  <ul className="features-list list-unstyled p-0">
-                    {plan.features.map((feature, i) => (
-                      <li key={i}>
-                        {feature ? (
-                          <FaCheck className="text-success me-2" />
-                        ) : (
-                          <FaTimes className="text-danger me-2" />
-                        )}
-                        Feature {i + 1}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    className={`btn ${plan.border.replace(
-                      "border-",
-                      "btn-"
-                    )} text-white mt-3`}
                   >
-                    {plan.name === "FREE" ? "GET STARTED" : "CHOOSE PLAN"}
-                  </button>
+                    <h3>{plan.name}</h3>
+                    <p className="price fw-bold">{plan.price}</p>
+                    <ul className="features-list list-unstyled p-0">
+                      <li> Free for first 25–50 businesses</li>
+                    </ul>
+                    <button
+                      className={`btn ${plan.border.replace(
+                        "border-",
+                        "btn-"
+                      )} text-white mt-3`}
+                    >
+                      {plan.name === "FREE" ? "GET STARTED" : "CHOOSE PLAN"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="offer">
+              <h2 className="fw-bold">Then</h2>
+              <p className="h5 mb-2">Businesses: $5–10/month</p>
+              <p className="h5">Community Members: $5–10/month</p>
+            </div>
           </div>
         </div>
       </section>
@@ -369,135 +372,6 @@ const Bussiness = () => {
         </div>
       </section>
 
-      {/* pricing */}
-
-      <div className="container py-5 my-5">
-        {/* Pricing Header */}
-        <div className="text-center mb-5">
-          <h2 className="get fw-bold text-black mb-3">
-            Simple, Transparent Pricing
-          </h2>
-          <p className="lead">Start for free during our launch phase</p>
-        </div>
-
-        {/* Pricing Tabs */}
-
-        {/* Pricing Content */}
-        <div className="tab-content" id="pricing-tabContent">
-          {/* Business Pricing */}
-          <div
-            className="tab-pane fade show active"
-            id="business-pricing"
-            role="tabpanel"
-          >
-            <div className="row justify-content-center">
-              {/* Launch Phase */}
-              <div className="col-lg-5 mb-4 mb-lg-0">
-                <div className=" card2 h-100 border-0 shadow-lg rounded-4">
-                  <div className="card-header bg-primary text-white py-4 rounded-top-4">
-                    <h3 className="h2 mb-0 mx-3">Launch Phase</h3>
-                  </div>
-                  <div className="card-body p-4">
-                    <div className=" mb-4">
-                      <span className="display-6 fw-bold">Free</span>
-                      <span className="text-muted">/month</span>
-                    </div>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        Free for first 25–50 businesses
-                      </li>
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        All features included
-                      </li>
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        Priority onboarding
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* Regular Pricing */}
-              <div className="col-lg-5">
-                <div className=" card2 h-100 border-0 shadow-lg rounded-4">
-                  <div className="card-header bg-dark text-white py-4 rounded-top-4">
-                    <h3 className="h2 mb-0 h2 mb-0 mx-3 ">Standard Plan</h3>
-                  </div>
-                  <div className="card-body p-4">
-                    <div className=" mb-4">
-                      <span className="display-6 fw-bold">$5-10</span>
-                      <span className="text-muted">/month</span>
-                    </div>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        After initial launch phase
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Community Pricing */}
-          <div className="tab-pane fade" id="community-pricing" role="tabpanel">
-            <div className="row justify-content-center">
-              <div className="col-lg-5">
-                <div className="card h-100 border-0 shadow-lg rounded-4">
-                  <div className="card-header bg-info text-white py-4 rounded-top-4">
-                    <h3 className="h2 mb-0 text-center">
-                      Community Membership
-                    </h3>
-                  </div>
-                  <div className="card-body p-4">
-                    <div className="text-center mb-4">
-                      <span className="display-3 fw-bold">$5-10</span>
-                      <span className="text-muted">/month</span>
-                    </div>
-                    <ul className="list-unstyled mb-4">
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        Access to all partner perks
-                      </li>
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        Exclusive community events
-                      </li>
-                      <li className="mb-3">
-                        <i className="fas fa-check-circle text-success me-2"></i>{" "}
-                        Seamless Stripe integration
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="card-footer bg-transparent border-0 pb-4 text-center">
-                    <button className="btn btn-info text-white px-4" disabled>
-                      Coming Soon
-                    </button>
-                    <p className="small text-muted mt-2 mb-0">
-                      Tyler & Dori to provide Stripe details
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stripe Integration Note */}
-        <div className="text-center mt-5 pt-3">
-          <div className="d-inline-block bg-light p-3 rounded-3">
-            <i className="fab fa-stripe fa-3x text-primary mb-2"></i>
-            <h4 className="h5 mb-2">Secure Payment Processing</h4>
-            <p className="small mb-0">
-              All payments processed securely via Stripe
-            </p>
-          </div>
-        </div>
-      </div>
       <h2 className="fw-bold text-center my-5 get">Testimonials</h2>
       <Slider
         className="container story-slider"

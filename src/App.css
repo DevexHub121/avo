@@ -784,7 +784,7 @@ label.form-label {
 }
 
 .price {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: #333;
   margin: 10px 0;
@@ -996,4 +996,15 @@ a.nav-link:hover {
 }
 .green-prop {
   background-color: #0bbf64; /* Bootstrap primary color */
+}
+.offer {
+  width: 70%;
+  background-color: #198754;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
 }
