@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../http/baseUrl";
+import api, { apiMultiPart } from "../../http/baseUrl";
 import {
   startLoadingActivity,
   stopLoadingActivity,
@@ -15,19 +15,26 @@ export const signUpUser = createAsyncThunk<
   "auth/signUpUser",
   async ({ payload, navigate }, { dispatch, rejectWithValue }) => {
     try {
+      console.log("payload----------------", payload)
       dispatch(startLoadingActivity());
       const response = await api.post("Avo/SignUp", payload);
-      if (response.status === 200) {
-        dispatch(stopLoadingActivity());
-        Cookies.set("user_email", payload.email, { expires: 7 }); // Save for 7 days
-        toast.success("OTP sended to email for verify account!");
-        navigate("/otp");
-        return response.data;
-      } else {
-        return rejectWithValue("Signup failed");
+      const resData = response.data;
+      console.log("response------------------------000000000000", response.data)
+      if (resData.status !== 200) {
+        // Show toast here or handle in Register.tsx
+        toast.error(resData.data?.message || "Signup failed");
+        return rejectWithValue(resData.data?.message || "Signup failed");
       }
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
+
+      // Proceed only if actual signup is successful
+      Cookies.set("user_email", payload.email, { expires: 7 }); // Save for 7 days
+      toast.success("OTP sent to email to verify your account!");
+      navigate("/otp");
+      return resData;
+    } catch (error: any) {
+      console.error("Signup catch error:", error);
+
+      if (error.response && error.response.data?.message) {
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue("An error occurred during signup");
@@ -41,10 +48,15 @@ export const uploadLogoImage = createAsyncThunk<any>(
   "auth/uploadLogoImage",
   async (payload, { dispatch, rejectWithValue }) => {
     try {
+      console.log("hdfg")
+      for (const [key, value] of payload.entries()) {
+        console.log(`${key}:`, value);
+      }
+
       dispatch(startLoadingActivity());
-      const response = await api.post("Avo/upload-image", payload, {
+      const response = await apiMultiPart.post("Avo/upload-image", payload, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-type": "multipart/form-data",
         },
       });
       if (response.status === 200) {
@@ -55,6 +67,7 @@ export const uploadLogoImage = createAsyncThunk<any>(
         return rejectWithValue("Upload logo failed");
       }
     } catch (error) {
+      console.error("uploadLogoImage error:", error.response?.data ?? error);
       if (error.response && error.response.status === 400) {
         return rejectWithValue(error.response.data.message);
       }
@@ -132,9 +145,9 @@ export const signInUser = createAsyncThunk<
           expires: 30,
         });
         toast.success("User logged in successfully!");
-        if(from !== "/"){
+        if (from !== "/") {
           navigate(from, { replace: true });
-        }else{
+        } else {
           navigate("/dashboard");
         }
         return response.data;

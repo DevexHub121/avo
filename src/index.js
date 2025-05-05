@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Provider } from "react-redux";
 import { store } from "../src/services/store/store";
 import { Toaster } from "react-hot-toast";
+import 'react-phone-input-2/lib/style.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

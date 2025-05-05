@@ -8,6 +8,9 @@ import {
   verifyAccount,
 } from "../services/slices/auth/signUpSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+
 const OtpScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -44,11 +47,29 @@ const OtpScreen = () => {
     }
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const otpValue = data.otp.join(""); // Combine into a single OTP string
     const savedEmail = Cookies.get("user_email");
     const otpData: any = { email: savedEmail, otp: otpValue };
-    dispatch(verifyAccount({ payload: otpData, navigate }));
+
+    try {
+      const response = await dispatch(verifyAccount({ payload: otpData, navigate }));
+
+      if (verifyAccount.fulfilled.match(response)) {
+        const resData = response.payload;
+        if (resData?.status === 200) {
+          toast.success("OTP verified successfully!");
+          navigate("/success-page");
+        } else {
+          toast.error(resData?.data?.message || "OTP verification failed.");
+        }
+      } else {
+        toast.error("Verification failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Verification error:", err);
+      alert("An unexpected error occurred.");
+    }
     reset();
   };
 
@@ -85,6 +106,23 @@ const OtpScreen = () => {
                       className="text-center border-0 bg-transparent otp-inputs"
                       maxLength={1}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        const paste = e.clipboardData.getData("text").trim();
+                        if (!/^\d{1,6}$/.test(paste)) return;
+
+                        const otp = paste.split("").slice(0, 6);
+                        otp.forEach((digit, idx) => {
+                          setValue(`otp.${idx}`, digit, { shouldValidate: true });
+                          if (inputRefs.current[idx]) {
+                            inputRefs.current[idx]!.value = digit;
+                          }
+                        });
+
+                        const nextIndex = otp.length < 6 ? otp.length : 5;
+                        inputRefs.current[nextIndex]?.focus();
+                      }}
+
                     />
                   )}
                 />
@@ -101,7 +139,7 @@ const OtpScreen = () => {
             className="btn btn-danger mt-3 px-3 ms-3"
             onClick={() => resendOtp()}
           >
-            Reset OTP
+            Resend OTP
           </button>
         </form>
       </div>

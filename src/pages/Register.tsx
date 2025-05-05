@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Card, InputGroup } from "react-bootstrap";
 import { FaEye, FaEyeSlash, FaUpload } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,32 @@ import {
   uploadLogoImage,
 } from "../services/slices/auth/signUpSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { registerSchema } from "../components/Register/validation/registerSchema";
+import PhoneInput from 'react-phone-input-2';
+import { toast } from 'react-toastify';
+import * as CSC from "country-state-city";
+
+
+type FormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  website?: string;
+  address: string;
+  profile_photo: string;
+  businessRole: 'user' | 'business-admin';
+  businessName?: string;
+  businessAddress?: string;
+  businessCity?: string;
+  businessCountry?: string;
+  businessState?: string;
+  pinCode?: string;
+  logo?: string;
+  business_logo?: string;
+};
 
 interface SignUpFormData {
   firstName: string;
@@ -26,73 +52,159 @@ interface SignUpFormData {
   businessState: string;
   businessCountry: string;
   pinCode: string;
+  business_logo: string;
 }
 
 const Register = () => {
+
   const [file, setFile] = useState(null);
   const [imgFile, setImgFile] = useState(null);
+  const [businessFile, setBusinessFile] = useState(null);
+  const [businessImgFile, setBusinessImgFile] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState("");
+  const [countries, setCountries] = useState(CSC.Country.getAllCountries());
+  const [states, setStates] = useState<ReturnType<typeof CSC.State.getStatesOfCountry>>([]);
+  const [cities, setCities] = useState<ReturnType<typeof CSC.City.getCitiesOfState>>([]);
+
+
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+
   const {
+    control,
     register,
     handleSubmit,
-    setValue,
-    control,
     reset,
-    formState: { errors },
-  } = useForm<SignUpFormData>();
-  const [showPassword, setShowPassword] = useState(false);
-  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
-    let logoUrl = "";
-    if (file) {
-      const formData: any = new FormData();
-      formData.append("image", file);
-      const res: any = await dispatch(uploadLogoImage(formData)).unwrap();
-      logoUrl = res.url;
+    setValue,
+    watch,
+    formState: { errors }
+  } = useForm<FormValues>({
+    resolver: yupResolver(registerSchema),
+    mode: 'onBlur', // or 'onChange' / 'onSubmit'
+  });
+
+  const selectedCountry = watch("businessCountry");
+  const selectedState = watch("businessState");
+
+  useEffect(() => {
+    if (!selectedCountry) {
+      setStates([]);
+      return;
     }
-    // Create FormData for file upload (and other fields)
-    const payload = {
-      name: `${data.firstName} ${data.lastName}`,
-      email: data.email,
-      password: data.password,
-      businessRole: data.businessRole,
-      website: data.website,
-      number: data.phone,
-      business_name: data.businessName,
-      profile_photo: logoUrl,
-      business_address: data.address,
-      business_city: data.businessCity,
-      business_state: data.businessState,
-      business_country: data.businessCountry,
-      business_pincode: data.pinCode,
-    };
-    dispatch(signUpUser({ payload: payload, navigate }))
-      .unwrap()
-      .then((res) => reset());
-    setImgFile(null);
-  };
+    setStates(CSC.State.getStatesOfCountry(selectedCountry));
+    // reset city
+    setCities([]);
+  }, [selectedCountry]);
 
+  useEffect(() => {
+    if (!selectedCountry || !selectedState) {
+      setCities([]);
+      return;
+    }
+    setCities(CSC.City.getCitiesOfState(selectedCountry, selectedState));
+  }, [selectedCountry, selectedState]);
+
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const uploadImage = async (file: File | null) => {
+    console.log("file", file)
+    if (!file) return "";
+    const formData = new FormData();
+    formData.append("image", file);
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    const res: any = await dispatch(uploadLogoImage(formData)).unwrap();
+    return res.url;
+  };
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+
+    try {
+      const profileUrl = await uploadImage(file);
+      let businessUrl = "";
+      if (selectedRole === "business-admin" && businessFile instanceof File) {
+        businessUrl = await uploadImage(businessFile);
+      }
+
+      const is_businessadmin = data.businessRole === 'business-admin';
+      const Phone = data.phone.replace(/^\+/, '')
+
+      const commonFields = {
+        name: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        number: Phone,
+        password: data.password,
+        profile_photo: profileUrl,
+        is_businessadmin,
+        address: data.address,
+      };
+
+      let payload: Record<string, any>;
+      if (is_businessadmin) {
+        payload = {
+          ...commonFields,
+          business_name: data.businessName,
+          business_address: data.address,
+          business_city: data.businessCity,
+          business_state: data.businessState,
+          business_country: data.businessCountry,
+          business_pincode: data.pinCode,
+          business_logo: businessUrl,
+        };
+      } else {
+        payload = { ...commonFields };
+      }
+      console.log("payload", payload)
+
+      dispatch(signUpUser({ payload: payload, navigate }))
+        .unwrap()
+        .then((res) => {
+          toast.success("Signup successful!");
+          reset();
+          setFile(null);
+          setImgFile(null);
+          setBusinessFile(null);
+          setBusinessImgFile(null);
+          setSelectedRole("");
+        })
+        .catch((error) => {
+          console.error("Signup error:", error);
+          toast.error("Signup failed. Please try again.");
+        });
+
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
   const handleFileChange = (e: any) => {
-    const fileData = e.target.files[0];
-    setFile(fileData);
-    setImgFile(URL.createObjectURL(fileData));
+    const selected = e.target.files?.[0] ?? null;
+    if (selected) {
+      setFile(selected);
+      setImgFile(URL.createObjectURL(selected));
+      setValue("logo", "", { shouldValidate: true });
+    }
   };
 
-  // const handleFileUpload = () => {
-  //   const formData: any = new FormData();
-  //   formData.append("image", file);
-  //   if (file) {
-  //     dispatch(uploadLogoImage(formData))
-  //       .unwrap()
-  //       .then((res: any) => {
-  //         setValue("logo", res.url, { shouldValidate: true });
-  //       });
-  //   }
-  // };
+  const handleBusinessFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = e.target.files?.[0] ?? null;
+    setBusinessFile(selected);
+    setBusinessImgFile(selected ? URL.createObjectURL(selected) : null);
+    setValue("business_logo", "");
+  };
 
+  const handleDeleteBusinessImage = () => {
+    setBusinessFile(null);
+    setBusinessImgFile(null);
+    setValue("business_logo", "");
+  };
 
   const handleDeleteImage = () => {
+    setFile(null);
     setImgFile(null);
     setValue("logo", "", { shouldValidate: true });
   };
@@ -100,14 +212,14 @@ const Register = () => {
   return (
     <div className="register-page bg-dark text-light vh-100 d-flex align-items-center">
       <div className="container-fluid">
-        <Row className="justify-content-center px-5">
+        <Row className="px-5 justify-content-center">
           <Col md={12} lg={12}>
             <div className="">
               <Row className="">
                 {/* Left Section */}
                 <Col
                   md={5}
-                  className="bg-dark text-white d-flex flex-column justify-content-center  py-4"
+                  className="py-4 text-white bg-dark d-flex flex-column justify-content-center"
                 >
                   <h2 className="mb-3 fw-bold fs-1">
                     Successfull Business <br></br> Strategies
@@ -118,7 +230,7 @@ const Register = () => {
                     community inspired discount program.
                   </p>
                   <img
-                    className="w-75 mt-5"
+                    className="mt-5 w-75"
                     src="/images/OBJECTS.png"
                     alt="img"
                   />
@@ -132,14 +244,17 @@ const Register = () => {
                 {/* Right Section - Form */}
                 <Col md={7}>
                   <Card.Body
-                    className="bg-white p-4 text-black"
+                    className="p-4 text-black bg-white"
                     style={{
                       borderRadius: "24px",
                       borderLeft: "7px solid #198754",
                       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                      height: "60vh",
+                      overflowY: "auto",
+                      padding: "1.5rem"
                     }}
                   >
-                    <h4 className="fw-bold mb-4">Sign-Up</h4>
+                    <h4 className="mb-4 fw-bold">Sign-Up</h4>
                     <Form onSubmit={handleSubmit(onSubmit)}>
                       <Row>
                         <Col md={4}>
@@ -184,7 +299,7 @@ const Register = () => {
                                 });
                               }}
                             >
-                              <option value="communit-member">
+                              <option value="community-member">
                                 Community Member
                               </option>
                               <option value="business-admin">
@@ -216,18 +331,27 @@ const Register = () => {
                         <Col md={6}>
                           <Form.Group className="mb-3">
                             <Form.Label>Phone Number</Form.Label>
-                            <InputGroup>
-                              <InputGroup.Text>🇺🇸 +1</InputGroup.Text>
-                              <Form.Control
-                                type="tel"
-                                placeholder="Phone Number"
-                                {...register("phone", { required: true })}
-                                isInvalid={!!errors.phone}
-                              />
-                              <Form.Control.Feedback type="invalid">
-                                This field is required
-                              </Form.Control.Feedback>
-                            </InputGroup>
+                            <Controller
+                              name="phone"
+                              control={control}
+                              render={({ field: { onChange, value } }) => (
+                                <PhoneInput
+                                  country={'us'}           // default country
+                                  value={value}
+                                  onChange={onChange}      // updates RHF state
+                                  inputProps={{
+                                    name: 'phone',
+                                    required: true,
+                                  }}
+                                  inputStyle={{ width: '100%' }}
+                                />
+                              )}
+                            />
+                            {errors.phone && (
+                              <Form.Text className="text-danger">
+                                {errors.phone.message}
+                              </Form.Text>
+                            )}
                           </Form.Group>
                         </Col>
                         <Col md={6}>
@@ -245,73 +369,38 @@ const Register = () => {
                           </Form.Group>
                         </Col>
                         <Col md={6}>
-                          {/* */}
-                          {imgFile === null ? (
-                            <Form.Group className="mb-3">
-                              <Form.Label>Profile Photo</Form.Label>
-                              <Controller
-                                name="logo"
-                                control={control}
-                                rules={{ required: false }}
-                                render={({ field }) => (
-                                  <div
-                                    className={`d-flex align-items-center border p-2 rounded ${
-                                      errors.logo ? "border-danger" : ""
-                                    }`}
-                                  >
-                                    <input
-                                      type="file"
-                                      className="d-none"
-                                      id="uploadLogo"
-                                      accept="image/*"
-                                      onChange={(e) => {
-                                        handleFileChange(e);
-                                        field.onChange(e);
-                                      }}
-                                    />
-                                    <label
-                                      htmlFor="uploadLogo"
-                                      className="d-flex align-items-center cursor-pointer"
-                                    >
-                                      <FaUpload className="me-2" />
-                                      <span>Upload Photo</span>
-                                    </label>
-                                  </div>
-                                )}
-                              />
-                              {errors.logo && (
-                                <span className="text-danger">
-                                  This field is required
-                                </span>
-                              )}
-                            </Form.Group>
-                          ) : (
-                            <div className="w-100 mb-2 mt-3">
-                              <div className="d-flex w-100 mb-2">
-                                <img
-                                  className="w-25 rounded-circle"
-                                  src={imgFile}
-                                  alt="preview img"
+                          <Form.Group className="mb-3">
+                            <Form.Label>Profile Photo</Form.Label>
+                            {!imgFile ? (
+                              <div className="p-2 border rounded d-flex align-items-center">
+                                <input
+                                  type="file"
+                                  className="d-none"
+                                  id="uploadLogo"
+                                  accept="image/*"
+                                  onChange={handleFileChange}
                                 />
-                                <div className="d-flex w-50 m-auto">
-                                  <Button
-                                    className="w-10 upload-div-btn me-2"
-                                    variant="danger"
-                                    onClick={() => handleDeleteImage()}
-                                  >
-                                    Delete
-                                  </Button>
-                                  <Button
-                                    className="w-10 upload-div-btn"
-                                    variant="success"
-                                    onClick={() => handleFileUpload()}
-                                  >
-                                    Upload
-                                  </Button>
-                                </div>
+                                <label
+                                  htmlFor="uploadLogo"
+                                  className="cursor-pointer d-flex align-items-center"
+                                >
+                                  <FaUpload className="me-2" />
+                                  <span>Upload Photo</span>
+                                </label>
                               </div>
-                            </div>
-                          )}
+                            ) : (
+                              <div className="mb-3 d-flex align-items-center">
+                                <img
+                                  className="w-25 rounded-circle me-3"
+                                  src={imgFile}
+                                  alt="preview"
+                                />
+                                <Button variant="danger" onClick={handleDeleteImage}>
+                                  Delete
+                                </Button>
+                              </div>
+                            )}
+                          </Form.Group>
                         </Col>
                       </Row>
                       <Row></Row>
@@ -374,7 +463,22 @@ const Register = () => {
                                   </Form.Control.Feedback>
                                 </Form.Group>
                               </Col>
-
+                              <Col md={6}>
+                                <Form.Group className="mb-3">
+                                  <Form.Label>Business Logo</Form.Label>
+                                  {!businessImgFile ? (
+                                    <div className="p-2 border rounded d-flex align-items-center">
+                                      <input type="file" className="d-none" id="uploadBusinessLogo" accept="image/*" onChange={handleBusinessFileChange} />
+                                      <label htmlFor="uploadBusinessLogo" className="cursor-pointer d-flex align-items-center"><FaUpload className="me-2" />Upload Logo</label>
+                                    </div>
+                                  ) : (
+                                    <div className="mb-3 d-flex align-items-center">
+                                      <img src={businessImgFile} className="rounded w-25 me-3" alt="preview" />
+                                      <Button variant="danger" onClick={handleDeleteBusinessImage}>Delete</Button>
+                                    </div>
+                                  )}
+                                </Form.Group>
+                              </Col>
                               <Col md={6}>
                                 <Form.Group className="mb-3">
                                   <Form.Label>Business Address</Form.Label>
@@ -394,14 +498,20 @@ const Register = () => {
                               <Col md={6}>
                                 <Form.Group className="mb-3">
                                   <Form.Label>Country</Form.Label>
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="Country"
-                                    {...register("businessCountry", {
-                                      required: true,
-                                    })}
+                                  <Form.Select
+                                    {...register("businessCountry", { required: true })}
                                     isInvalid={!!errors.businessCountry}
-                                  />
+                                    defaultValue=""
+                                  >
+                                    <option value="" disabled>
+                                      — Select country —
+                                    </option>
+                                    {countries.map((c) => (
+                                      <option key={c.isoCode} value={c.isoCode}>
+                                        {c.name}
+                                      </option>
+                                    ))}
+                                  </Form.Select>
                                   <Form.Control.Feedback type="invalid">
                                     This field is required
                                   </Form.Control.Feedback>
@@ -410,14 +520,21 @@ const Register = () => {
                               <Col md={6}>
                                 <Form.Group className="mb-3">
                                   <Form.Label>State</Form.Label>
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="State"
-                                    {...register("businessState", {
-                                      required: true,
-                                    })}
+                                  <Form.Select
+                                    {...register("businessState", { required: true })}
                                     isInvalid={!!errors.businessState}
-                                  />
+                                    defaultValue=""
+                                    disabled={!states.length}
+                                  >
+                                    <option value="" disabled>
+                                      — Select state —
+                                    </option>
+                                    {states.map((s) => (
+                                      <option key={s.isoCode} value={s.isoCode}>
+                                        {s.name}
+                                      </option>
+                                    ))}
+                                  </Form.Select>
                                   <Form.Control.Feedback type="invalid">
                                     This field is required
                                   </Form.Control.Feedback>
@@ -426,24 +543,32 @@ const Register = () => {
                               <Col md={6}>
                                 <Form.Group className="mb-3">
                                   <Form.Label>City</Form.Label>
-                                  <Form.Control
-                                    type="text"
-                                    placeholder="City"
-                                    {...register("businessCity", {
-                                      required: true,
-                                    })}
+                                  <Form.Select
+                                    {...register("businessCity", { required: true })}
                                     isInvalid={!!errors.businessCity}
-                                  />
+                                    defaultValue=""
+                                    disabled={!cities.length}
+                                  >
+                                    <option value="" disabled>
+                                      — Select city —
+                                    </option>
+                                    {cities.map((c) => (
+                                      <option key={c.name} value={c.name}>
+                                        {c.name}
+                                      </option>
+                                    ))}
+                                  </Form.Select>
                                   <Form.Control.Feedback type="invalid">
                                     This field is required
                                   </Form.Control.Feedback>
                                 </Form.Group>
                               </Col>
+
                               <Col md={6}>
                                 <Form.Group className="mb-3">
                                   <Form.Label>Pin Code</Form.Label>
                                   <Form.Control
-                                    type="text"
+                                    type="number"
                                     placeholder="Pin Code"
                                     {...register("pinCode", {
                                       required: true,
@@ -459,7 +584,7 @@ const Register = () => {
                           </>
                         )}
                       </Row>
-                      <div className="d-flex gap-2 align-items-center">
+                      <div className="flex-row gap-5 mb-10 d-flex align-items-center mt-7">
                         <Button
                           variant="primary"
                           type="submit"
@@ -468,7 +593,7 @@ const Register = () => {
                           Sign Up
                         </Button>
 
-                        <p className="text-center mt-3">
+                        <p className="flex-grow-0 text-center">
                           Already have an account?{" "}
                           <Link to="/login" className="text-success">
                             Log in
