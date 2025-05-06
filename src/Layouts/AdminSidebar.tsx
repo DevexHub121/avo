@@ -51,10 +51,10 @@ export const AdminSideBar = (props: {
       Cookies.remove("user_data");
     }
     setActiveTab(tab.path);
-  }
+  };
   return (
     <div
-      className={`side-navbar  border-end !border-graytext  ${
+      className={`side-navbar  border-end !border-graytext  vh-100 ${
         props.hide ? "active" : ""
       }`}
     >
@@ -82,27 +82,30 @@ export const AdminSideBar = (props: {
         />
         {dashboardTabs.map((tab, index) => {
           return (
-          <li
-            key={index}
-            className={`${activeTab === tab.path ? "activetab " : ""} mb-1 overflow-hidden`}
-            onClick={() => handleTab(tab)}
-          >
-            {userDetails?.role !== "user" &&
-            tab.label === "Create Business" ? null : (
-              <NavLink
-                to={tab.path}
-                className="d-flex align-items-center text-decoration-none"
-              >
-                <span className="icon">
-                  <i className={tab.icon}></i>
-                </span>
-                <span className="text text-graytext text-lg font-medium ms-2">
-                  {tab.label}
-                </span>
-              </NavLink>
-            )}
-          </li>
-        )})}
+            <li
+              key={index}
+              className={`${
+                activeTab === tab.path ? "activetab " : ""
+              } mb-1 overflow-hidden`}
+              onClick={() => handleTab(tab)}
+            >
+              {userDetails?.role !== "user" &&
+              tab.label === "Create Business" ? null : (
+                <NavLink
+                  to={tab.path}
+                  className="d-flex align-items-center text-decoration-none"
+                >
+                  <span className="icon">
+                    <i className={tab.icon}></i>
+                  </span>
+                  <span className="text text-graytext text-lg font-medium ms-2">
+                    {tab.label}
+                  </span>
+                </NavLink>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

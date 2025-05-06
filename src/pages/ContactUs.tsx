@@ -71,7 +71,7 @@ const ContactUs = () => {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -131,7 +131,7 @@ const ContactUs = () => {
           className="text-dark text-center my-5 text-capitalize fw-bold"
           data-aos="zoom-in"
         >
-          <span className="text-success">Our</span> Events
+          <span className="text-success">Contact </span> Us
         </h1>
       </div>
       <div className="">
@@ -143,41 +143,10 @@ const ContactUs = () => {
               data-aos-duration="3000"
             >
               <div
-                className=" p-4 shadow-lg rounded"
+                className=" p-5 shadow-lg rounded"
                 style={{ maxWidth: "600px", margin: "auto" }}
               >
                 <h2 className="text-center text-dark mb-3">Inquiry Form</h2>
-
-                <div className="d-flex justify-content-center mb-3">
-                  <button
-                    className={`btn me-2 ${
-                      formData.type === "business"
-                        ? "btn-success"
-                        : "btn-outline-success"
-                    }`}
-                    onClick={() =>
-                      setFormData({ ...formData, type: "business" })
-                    }
-                  >
-                    Business
-                  </button>
-                  <button
-                    className={`btn ${
-                      formData.type === "individual"
-                        ? "btn-success"
-                        : "btn-outline-success"
-                    }`}
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        type: "individual",
-                        company: "",
-                      })
-                    }
-                  >
-                    Individual
-                  </button>
-                </div>
 
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
@@ -358,7 +327,7 @@ const ContactUs = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>

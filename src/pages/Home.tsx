@@ -4,6 +4,7 @@ import { FaTags } from "react-icons/fa";
 import { CiMobile1 } from "react-icons/ci";
 import Slider from "react-slick";
 import { Link, useNavigate } from "react-router-dom";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const Home = () => {
   // var settings = {
@@ -15,7 +16,7 @@ const Home = () => {
   // };
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="haeder mb-5 overflow-hidden">
         <nav
           className="navbar navbar-expand-lg navbar-dark"
@@ -60,12 +61,12 @@ const Home = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -132,11 +133,16 @@ const Home = () => {
               data-aos-duration="1500"
             >
               <div className="content-banner">
-                <h1 className="fw-bold font4">
-                  <span className="spantext">Strengthening Small</span>{" "}
-                  Businesses, Retaining Employees Growing Communities
+                <h1 className="fw-bold font4 text-center text-md-start">
+                  <span className="d-block d-md-inline spantext">
+                    Strengthening Small
+                  </span>{" "}
+                  <span className="d-block d-md-inline">
+                    Businesses, Retaining Employees, Growing Communities
+                  </span>
                 </h1>
-                <h5 className="my-3">
+
+                <h5 className="my-3 ">
                   Join AVO and unlock exclusive perks for your employees and
                   local customers.
                 </h5>
@@ -181,7 +187,9 @@ const Home = () => {
               <div className="feature-box">
                 <FaTags />
                 <h4>Employee Discounts</h4>
-                <p>Exclusive deals for employees to save more.</p>
+                <p>
+                  Exclusive deals your team can redeem with a personal QR code.
+                </p>
               </div>
             </div>
             <div
@@ -193,7 +201,7 @@ const Home = () => {
                 <FaMapMarkerAlt />
 
                 <h4>Local Perks</h4>
-                <p>Special offers at local businesses and vendors.</p>
+                <p>Offers from nearby shops, cafes, gyms, and more</p>
               </div>
             </div>
             <div
@@ -205,7 +213,9 @@ const Home = () => {
                 <FaBullhorn />
 
                 <h4>Marketing Tools</h4>
-                <p>Powerful tools to help you grow your business.</p>
+                <p>
+                  Promote your business, events, and perks with built-in tools.
+                </p>
               </div>
             </div>
             <div
@@ -216,7 +226,10 @@ const Home = () => {
               <div className="feature-box">
                 <CiMobile1 />
                 <h4>App Features</h4>
-                <p>Easy-to-use mobile app with all essential features.</p>
+                <p>
+                  Access perks, events, and scan-ready QR codes — all in one
+                  platform.
+                </p>
               </div>
             </div>
           </div>
@@ -234,7 +247,7 @@ const Home = () => {
           Benefits Of AVO
         </h2>
         <img className="dooler" src="/images/doler.png" alt="img" />
-        <img className="img-fluid" src="/images/new-img.png" alt="img" />
+        <img className="img-fluid " src="/images/conent-img.png" alt="img" />
       </section>
       {/* <!-- Testimonials --> */}
       <div className="container" data-aos="fade-up" data-aos-duration="3000">
@@ -344,15 +357,15 @@ const Home = () => {
       </div>
 
       {/* <!-- get touch --> */}
-      <section id="" className="mt-5 overflow-auto">
+      <section id="" className="mt-5">
         <h2 className="text-center text-[40px] fw-bold get">Get in touch</h2>
         <div className="container py-5">
           <div className="row justify-content-center">
-            <div className="col-lg-10">
+            <div className="col-lg-12">
               <div className="row g-5">
                 {/* <!-- Contact Info --> */}
                 <div
-                  className="col-md-5"
+                  className="col-md-6"
                   data-aos="fade-right"
                   data-aos-easing="linear"
                   data-aos-duration="1500"
@@ -388,7 +401,7 @@ const Home = () => {
                 </div>
                 {/* <!-- Form Section --> */}
                 <div
-                  className="col-md-7"
+                  className="col-md-6"
                   data-aos="fade-left"
                   data-aos-easing="linear"
                   data-aos-duration="1500"
@@ -498,12 +511,12 @@ const Home = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

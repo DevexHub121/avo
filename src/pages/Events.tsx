@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Events = () => {
   const images = [
@@ -62,12 +63,12 @@ const Events = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -145,7 +146,7 @@ const Events = () => {
             data-aos="fade-left"
             data-aos-duration="3000"
           >
-            <h5 className="text-capitalize text-success">
+            <h5 className="text-capitalize text-success mb-2">
               about our Business conferences
             </h5>
             <h2>Explore Future Of Design At Our Yearly Conference</h2>
@@ -159,7 +160,7 @@ const Events = () => {
               inspire, and push the boundaries of what is possible in design.
               From emerging technologies to sustainable design practices.
             </p>
-            <button className="animated-btn">Become an Attendee</button>
+            <button className="animated-btn mt-3">Become an Attendee</button>
           </div>
         </div>
       </div>
@@ -169,11 +170,7 @@ const Events = () => {
           {images.map((src, index) => (
             <div key={index} className="col-12 col-sm-6 col-md-4">
               <div className="gallery-item">
-                <img
-                  src={src.src}
-                  alt={`img`}
-                  className="img-fluid"
-                />
+                <img src={src.src} alt={`img`} className="img-fluid" />
                 <div className="overlay">
                   <span>{src.content}</span>
                 </div>
@@ -221,12 +218,12 @@ const Events = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>

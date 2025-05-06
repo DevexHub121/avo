@@ -48,12 +48,12 @@ const HowItsWork = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -107,147 +107,88 @@ const HowItsWork = () => {
           </div>
         </nav>
       </div>
-      <h1
-        className="text-dark text-center my-5 text-capitalize fw-bold get"
-        data-aos="zoom-in"
-      >
-        <span className="text-success">How</span> Its Work
-      </h1>
+      <div className="">
+        <h1
+          className="text-dark text-center my-5 text-capitalize fw-bold get"
+          data-aos="zoom-in"
+        >
+          <span className="text-success">How AVO</span> Works
+        </h1>
+      </div>
       <div className="bg-clr graph" data-aos="zoom-in" data-aos-duration="3000">
         <div className="container my-5">
-          <div className="d-flex gap-5 align-items-center borderspace">
+          <div className="d-flex gap-3 align-items-center borderspace ">
             <div className="circle1">
-              <h2 className="">START</h2>
+              <h2 className="">Business Track</h2>
             </div>
-            <div className="step">STEP1</div>
-            <div className="step">STEP2</div>
-            <div className="step">STEP3</div>
+            <div className="step">Sign up</div>
+            <div className="step">Add Employees</div>
+            <div className="step">Set perks</div>
+            <div className="step"> Promote Events</div>
           </div>
           <img className="img-fluid" src="/images/borderimg2.png" alt="img" />
           <div className="d-flex gap-5 align-items-center justify-content-between borderspace">
-            <div className="step">STEP1</div>
-            <div className="step">STEP2</div>
-            <div className="step">STEP3</div>
+            <div className="step">Sign up</div>
+            <div className="step">Get QR code</div>
+            <div className="step">Explore events</div>
+            <div className="step">Redeem perks</div>
 
             <div className="circle1">
-              <h2 className="">END</h2>
+              <h2 className="">Community Track</h2>
             </div>
           </div>
         </div>
       </div>
-
       <div className="card1 my-5">
         <div className="container">
-          <div className="row align-items-center">
+          <div className="row align-items-center ">
             <div
-              className="col-md-5"
+              className="col-md-6"
               data-aos="fade-right"
               data-aos-duration="3000"
             >
               <div className="">
-                <img className="img-fluid " src="/images/card1.png" alt="img" />
+                <img
+                  className="img-fluid rounded"
+                  src="/images/card1.jpg"
+                  alt="img"
+                />
               </div>
-            </div>
-            <div
-              className="col-md-7"
-              data-aos="fade-left"
-              data-aos-duration="3000"
-            >
-              <h2 className="fw-bold">
-                <span className="text-success">Digital Card</span> explanation
-              </h2>
-              <p>
-                A physical card is a tangible, plastic or metal card issued by
-                banks, financial institutions, or service providers for
-                transactions. It typically includes a magnetic strip, EMV chip,
-                and contactless technology for secure payments.
-              </p>
-              <h6 className="text-success">Key Features:</h6>
-              <ul className="links p-0 ">
-                <li className="list-unstyled position-relative ps-4 ">
-                  <b>Security Features</b> – Explain how digital cards ensure
-                  security through encryption, tokenization, and biometric
-                  authentication.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Convenience</b> – Highlight the ease of use, including
-                  mobile wallet integration, quick payments, and online
-                  transactions.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Customization </b> – Mention how digital cards can be
-                  personalized with spending limits, virtual card numbers, and
-                  expiration controls.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Environmental Benefits</b> – Digital cards reduce plastic
-                  waste and promote eco-friendly payment solutions.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Instant Issuance </b>– Unlike physical cards, digital cards
-                  can be generated instantly and used immediately for
-                  transactions.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="card2" style={{ backgroundColor: "#CDDC39" }}>
-        <div className="container ">
-          <div className="row align-items-center ">
-            <div
-              className="col-md-6 p-3"
-              data-aos="fade-right"
-              data-aos-duration="3000"
-            >
-              <h2 className="fw-bold">
-                <span className="text-success">Physical card</span> explanation
-              </h2>
-              <p>
-                A physical card is a tangible, plastic or metal card issued by
-                banks, financial institutions, or service providers for
-                transactions. It typically includes a magnetic strip, EMV chip,
-                and contactless technology for secure payments.
-              </p>
-              <h6 className="text-success">Key Features:</h6>
-              <ul className="links p-0 ">
-                <li className="list-unstyled position-relative ps-4 ">
-                  <b>Durability</b> – Made from plastic or metal for long-term
-                  use.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Security Measures</b> – Equipped with EMV chips and PIN
-                  protection to prevent fraud.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Widely Accepted</b> – Can be used at ATMs, POS terminals,
-                  and online transactions.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b> Contactless Payments</b> – Supports NFC technology for
-                  tap-and-go payments.
-                </li>
-                <li className="list-unstyled position-relative ps-4">
-                  <b>Physical Presence Required</b> – Must be carried for
-                  in-store purchases and ATM withdrawals.
-                </li>
-              </ul>
             </div>
             <div
               className="col-md-6"
               data-aos="fade-left"
               data-aos-duration="3000"
             >
-              <div className="">
-                <img className="img-fluid " src="/images/card2.jpg" alt="img" />
-              </div>
+              <h2 className="fw-bold">
+                <span className="text-success">QR Code </span> Flow
+              </h2>
+              <p>
+                The QR Code system acts as a bridge between employees and local
+                business offers. Each QR code is uniquely tied to a business and
+                offer type. When scanned, it validates employee credentials,
+                tracks usage, and ensures secure redemption of benefits. This
+                logic ensures both user convenience and business accountability.
+              </p>
+              <h6 className="text-success my-2">Employee Workflow</h6>
+              <ul className="links p-0 ">
+                <li className="list-unstyled position-relative ps-4 ">
+                  Business signs up
+                </li>
+                <li className="list-unstyled position-relative ps-4">
+                  Adds employees
+                </li>
+                <li className="list-unstyled position-relative ps-4">
+                  Employee gets invite → Verifies → Gains QR code access
+                </li>
+                <li className="list-unstyled position-relative ps-4">
+                  Uses QR code to access perks at participating vendors
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-
+      </div>{" "}
       <section className="how-we-work my-5 mx-3">
         <h2 className="fw-bold get text-center">
           <span className="text-success">Simple steps </span> to sign up
@@ -403,12 +344,12 @@ const HowItsWork = () => {
                 </li>
                 <li>
                   <Link className="nav-link" to="/how-it-works">
-                    How It Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/businesses">
-                    Businesses
+                    Vendors
                   </Link>
                 </li>
                 <li>
