@@ -41,19 +41,35 @@ const AddEmployee = ({
   );
 
   const onSubmit: SubmitHandler<EmployeeFormData> = async (data: any) => {
-    if (modalType === "edit" && employeeItem) {
-      data.employee_id = employeeItem.id;
-      dispatch(
-        updateEmployee({ payload: data, business_id: userDetails?.business_id })
-      );
-    } else {
-      dispatch(
-        createEmployee({ payload: data, business_id: userDetails?.business_id })
-      );
+
+    try {
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const res = await dispatch(uploadLogoImage(formData)).unwrap();
+        // replace the local preview-URL with the server URL
+        data.image = res.url;
+      }
+
+
+      if (modalType === "edit" && employeeItem) {
+        data.employee_id = employeeItem.id;
+        dispatch(
+          updateEmployee({ payload: data, business_id: userDetails?.business_id })
+        );
+      } else {
+        dispatch(
+          createEmployee({ payload: data, business_id: userDetails?.business_id })
+        );
+      }
+      handleCloseEmployee();
+      setImgFile(null);
+      reset();
+    } catch (err: any) {
+      console.error("Error saving employee:", err);
     }
-    handleCloseEmployee();
-    setImgFile(null);
-    reset();
   };
 
   const handleFileChange = (e: any) => {
@@ -203,9 +219,8 @@ const AddEmployee = ({
                 rules={{ required: false }}
                 render={({ field }) => (
                   <div
-                    className={`d-flex align-items-center border p-2 rounded ${
-                      errors.profile_photo ? "border-danger" : ""
-                    }`}
+                    className={`d-flex align-items-center border p-2 rounded ${errors.profile_photo ? "border-danger" : ""
+                      }`}
                   >
                     <input
                       type="file"
@@ -219,7 +234,7 @@ const AddEmployee = ({
                     />
                     <label
                       htmlFor="uploadLogo"
-                      className="d-flex align-items-center cursor-pointer"
+                      className="cursor-pointer d-flex align-items-center"
                     >
                       <FaUpload className="me-2" />
                       <span>Upload logo</span>
@@ -232,25 +247,19 @@ const AddEmployee = ({
               )}
             </Form.Group>
           ) : (
-            <div className="w-100 mb-2 mt-3">
-              <div className="w-100 mb-2">
+            <div className="mt-3 mb-2 w-100">
+              <div className="mb-2 w-100">
                 <img className="w-25 rounded-circle" src={imgFile} alt="preview img" />
               </div>
               <div className="w-100">
                 <Button
-                  className="w-10 me-2"
+                  className="w-18 me-2"
                   variant="danger"
                   onClick={() => handleDeleteImage()}
                 >
                   Delete
                 </Button>
-                <Button
-                  className="w-10"
-                  variant="success"
-                  onClick={() => handleFileUpload()}
-                >
-                  Upload
-                </Button>
+
               </div>
             </div>
           )}

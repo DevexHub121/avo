@@ -38,8 +38,6 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
   const onSubmit: SubmitHandler<OfferFormData> = async (data: any) => {
 
     try {
-
-
       if (file) {
         const formData = new FormData();
         formData.append("image", file);
@@ -72,17 +70,6 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
     setImgFile(URL.createObjectURL(fileData));
   };
 
-  const handleFileUpload = () => {
-    const formData: any = new FormData();
-    formData.append("image", file);
-    if (file) {
-      dispatch(uploadLogoImage(formData))
-        .unwrap()
-        .then((res: any) => {
-          setValue("image", res.url, { shouldValidate: true });
-        });
-    }
-  };
 
   const handleDeleteImage = () => {
     setImgFile(null);
@@ -272,7 +259,7 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
                         className="cursor-pointer d-flex align-items-center"
                       >
                         <FaUpload className="me-2" />
-                        <span>Upload logo</span>
+                        <span>Upload Photo</span>
                       </label>
                     </div>
                   )}
