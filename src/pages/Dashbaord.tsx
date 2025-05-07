@@ -147,10 +147,10 @@ const Dashboard = () => {
   };
   return (
     <div>
-      <div className="main-outer pt-3  vh-100">
+      <div className="pt-3 main-outer vh-200">
         <div className="container">
           <Header />
-          <h3 className="py-4  fw-semibold">Dashboard</h3>
+          <h3 className="py-4 fw-semibold">Dashboard</h3>
           <DashboardSection />
         </div>
         {userDetails?.role === "business_admin" ? (

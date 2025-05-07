@@ -11,13 +11,13 @@ const RedeemedCoupons = ({
 
   return (
     <div className="container table-w">
-      <div className="bg-white py-4 px-4 rounded mt-5">
+      <div className="px-4 py-4 mt-5 bg-white rounded">
         <div className="d-flex justify-content-between">
           <div className="">
             <h3 className="fw-semibold">Redeemed Offers</h3>
           </div>
         </div>
-        <div className=" mt-3 table-responsive">
+        <div className="mt-3  table-responsive">
           <table className="table table-outer">
             <thead className="table-light table-header">
               <tr>
