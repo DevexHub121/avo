@@ -3,7 +3,10 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { signInUser, signInWithGoogle } from "../services/slices/auth/signUpSlice";
+import {
+  signInUser,
+  signInWithGoogle,
+} from "../services/slices/auth/signUpSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../services/store/store";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -19,7 +22,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -33,14 +36,12 @@ const SignIn = () => {
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-
         const { data: googleUser } = await axios.get(
           "https://www.googleapis.com/oauth2/v2/userinfo",
           { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
         );
 
-
-        console.log("googleUser", googleUser)
+        console.log("googleUser", googleUser);
 
         await dispatch(
           signInWithGoogle({
@@ -49,12 +50,16 @@ const SignIn = () => {
             navigate,
           })
         )
-          .unwrap().then((res: any) => {
-            const msg = res?.message
+          .unwrap()
+          .then((res: any) => {
+            const msg = res?.message;
             if (msg.includes("User not found")) {
-              toast("⚠ User not found, please register first")
+              toast("⚠ User not found, please register first");
               navigate("/register", {
-                state: { email: googleUser?.email, token: tokenResponse.access_token || null },
+                state: {
+                  email: googleUser?.email,
+                  token: tokenResponse.access_token || null,
+                },
               });
             } else if (msg.includes("Sign in successful.")) {
               toast.success(msg);
@@ -62,14 +67,9 @@ const SignIn = () => {
               Cookies.set("user_data", JSON.stringify(res?.user), {
                 expires: 30,
               });
-
-            }
-
-
-            else {
+            } else {
               toast.error(msg);
             }
-
           })
           .catch((err: any) => {
             const msg = err?.message || err || "";
@@ -85,7 +85,6 @@ const SignIn = () => {
       } catch (err: any) {
         toast.error("Something went wrong during Google login.");
       }
-
     },
     onError: () => {
       toast.error("Google sign-in failed");
@@ -94,33 +93,30 @@ const SignIn = () => {
   return (
     <div className="account">
       <Container className="d-flex justify-content-center align-items-center vh-100">
-        <Card className="border-0 shadow-lg w-75 ">
+        <Card className="sign border-0 shadow-lg w-75 ">
           <Row>
-
-            <Col md={6} className="p-5 ">
+            <Col md={6} className="p-5 order-mobbb">
               <h3 className="fw-bold">Create an account</h3>
               <p className="text-muted">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit.
+                Welcome back! Sign in to access your account. Forgot password?
+                Reset it. New user? Sign up now.
               </p>
-              <ul className="text-muted">
+              <ul className="text-muted pl-0">
                 <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  <b>Secure Login:</b> Your information is protected with
+                  industry-standard encryption.
                 </li>
                 <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  <b>Quick Access: </b> Sign in within seconds and pick up right
+                  where you left off.
                 </li>
                 <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  <b>Password Recovery:</b> Forgot your password? Easily reset
+                  it with a few clicks.
                 </li>
                 <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  <b>New Here?</b> Creating an account is simple and completely
+                  free.
                 </li>
               </ul>
               <Button variant="dark" className="py-2 w-100 rounded-pill">
@@ -134,7 +130,7 @@ const SignIn = () => {
             </Col>
 
             {/* Right Side - Sign In */}
-            <Col md={6} className="p-5">
+            <Col md={6} className="p-5 order-mob">
               <h3 className="fw-bold">Sign in</h3>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3">
@@ -197,8 +193,7 @@ const SignIn = () => {
                   className="w-100 rounded-pill"
                   onClick={() => loginWithGoogle()}
                 >
-                  <div className="gap-2 d-flex align-items-center justify-content-center" >
-
+                  <div className="gap-2 d-flex align-items-center justify-content-center">
                     <svg
                       width="24"
                       height="25"
@@ -226,7 +221,6 @@ const SignIn = () => {
 
                     <span className=""> Continue with Google</span>
                   </div>
-
                 </Button>
               </Form>
               <p className="mt-3 text-center text-muted">

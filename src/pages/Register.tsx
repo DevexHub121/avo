@@ -10,13 +10,12 @@ import {
   uploadLogoImage,
 } from "../services/slices/auth/signUpSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../components/Register/validation/registerSchema";
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput from "react-phone-input-2";
 import { toast } from "react-hot-toast";
 import * as CSC from "country-state-city";
 import { useLocation } from "react-router-dom";
-
 
 type FormValues = {
   firstName: string;
@@ -27,7 +26,7 @@ type FormValues = {
   website?: string;
   address: string;
   profile_photo: string;
-  businessRole: 'user' | 'business-admin';
+  businessRole: "user" | "business-admin";
   businessName?: string;
   businessAddress?: string;
   businessCity?: string;
@@ -58,21 +57,23 @@ interface SignUpFormData {
 }
 
 const Register = () => {
-
   const [file, setFile] = useState(null);
   const [imgFile, setImgFile] = useState(null);
   const [businessFile, setBusinessFile] = useState(null);
   const [businessImgFile, setBusinessImgFile] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState("");
   const [countries, setCountries] = useState(CSC.Country.getAllCountries());
-  const [states, setStates] = useState<ReturnType<typeof CSC.State.getStatesOfCountry>>([]);
-  const [cities, setCities] = useState<ReturnType<typeof CSC.City.getCitiesOfState>>([]);
+  const [states, setStates] = useState<
+    ReturnType<typeof CSC.State.getStatesOfCountry>
+  >([]);
+  const [cities, setCities] = useState<
+    ReturnType<typeof CSC.City.getCitiesOfState>
+  >([]);
   const [token, setToken] = useState<string | null>(null);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
-
 
   const {
     control,
@@ -81,10 +82,10 @@ const Register = () => {
     reset,
     setValue,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(registerSchema),
-    mode: 'onBlur', // or 'onChange' / 'onSubmit'
+    mode: "onBlur", // or 'onChange' / 'onSubmit'
   });
 
   const selectedCountry = watch("businessCountry");
@@ -96,7 +97,7 @@ const Register = () => {
     setToken(tokenFromState);
     if (prefillEmail) {
       setValue("email", prefillEmail);
-      setValue("password", "1234567890")
+      setValue("password", "1234567890");
     }
   }, [location.state, setValue]);
 
@@ -117,11 +118,10 @@ const Register = () => {
     setCities(CSC.City.getCitiesOfState(selectedCountry, selectedState));
   }, [selectedCountry, selectedState]);
 
-
   const [showPassword, setShowPassword] = useState(false);
 
   const uploadImage = async (file: File | null) => {
-    console.log("file", file)
+    console.log("file", file);
     if (!file) return "";
     const formData = new FormData();
     formData.append("image", file);
@@ -133,7 +133,6 @@ const Register = () => {
     return res.url;
   };
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-
     try {
       const profileUrl = await uploadImage(file);
       let businessUrl = "";
@@ -141,8 +140,8 @@ const Register = () => {
         businessUrl = await uploadImage(businessFile);
       }
 
-      const is_businessadmin = data.businessRole === 'business-admin';
-      const Phone = data.phone.replace(/^\+/, '')
+      const is_businessadmin = data.businessRole === "business-admin";
+      const Phone = data.phone.replace(/^\+/, "");
 
       const commonFields = {
         name: `${data.firstName} ${data.lastName}`,
@@ -166,12 +165,12 @@ const Register = () => {
           business_country: data.businessCountry,
           business_pincode: data.pinCode,
           business_logo: businessUrl,
-          token: token
+          token: token,
         };
       } else {
         payload = { ...commonFields };
       }
-      console.log("payload", payload)
+      console.log("payload", payload);
 
       if (token) {
         dispatch(googleSignUpUser({ payload, navigate }))
@@ -184,10 +183,8 @@ const Register = () => {
             setBusinessFile(null);
             setBusinessImgFile(null);
             setSelectedRole("");
-          })
-
+          });
       } else {
-
         dispatch(signUpUser({ payload: payload, navigate }))
           .unwrap()
           .then((res) => {
@@ -204,7 +201,6 @@ const Register = () => {
             toast.error("Signup failed. Please try again.");
           });
       }
-
     } catch (err) {
       console.error("Unexpected error:", err);
       toast.error("Something went wrong. Please try again.");
@@ -239,9 +235,9 @@ const Register = () => {
   };
 
   return (
-    <div className="register-page bg-dark text-light vh-100 d-flex align-items-center">
+    <div className="register-page bg-dark text-light vh-100 d-flex align-items-center mob-top">
       <div className="container-fluid">
-        <Row className="px-5 justify-content-center">
+        <Row className="px-5 justify-content-center mob-space">
           <Col md={12} lg={12}>
             <div className="">
               <Row className="">
@@ -249,7 +245,7 @@ const Register = () => {
                   md={5}
                   className="py-4 text-white bg-dark d-flex flex-column justify-content-center"
                 >
-                  <h2 className="mb-3 fw-bold fs-1">
+                  <h2 className="mb-3 fw-bold fs-1 buss">
                     Successfull Business <br></br> Strategies
                   </h2>
                   <p>
@@ -279,12 +275,12 @@ const Register = () => {
                       boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                       height: "60vh",
                       overflowY: "auto",
-                      padding: "1.5rem"
+                      padding: "1.5rem",
                     }}
                   >
                     <h4 className="mb-4 fw-bold">Sign-Up</h4>
                     <Form onSubmit={handleSubmit(onSubmit)}>
-                      <Row>
+                      <Row className="block-tab">
                         <Col md={4}>
                           <Form.Group className="mb-3">
                             <Form.Label>First Name</Form.Label>
@@ -340,7 +336,7 @@ const Register = () => {
                           </Form.Group>
                         </Col>
                       </Row>
-                      <Row>
+                      <Row className="mob-block">
                         <Col md={6}>
                           <Form.Group className="mb-3">
                             <Form.Label>Email Address</Form.Label>
@@ -365,14 +361,14 @@ const Register = () => {
                               control={control}
                               render={({ field: { onChange, value } }) => (
                                 <PhoneInput
-                                  country={'us'}           // default country
+                                  country={"us"} // default country
                                   value={value}
-                                  onChange={onChange}      // updates RHF state
+                                  onChange={onChange} // updates RHF state
                                   inputProps={{
-                                    name: 'phone',
+                                    name: "phone",
                                     required: true,
                                   }}
-                                  inputStyle={{ width: '100%' }}
+                                  inputStyle={{ width: "100%" }}
                                 />
                               )}
                             />
@@ -424,7 +420,10 @@ const Register = () => {
                                   src={imgFile}
                                   alt="preview"
                                 />
-                                <Button variant="danger" onClick={handleDeleteImage}>
+                                <Button
+                                  variant="danger"
+                                  onClick={handleDeleteImage}
+                                >
                                   Delete
                                 </Button>
                               </div>
@@ -433,9 +432,9 @@ const Register = () => {
                         </Col>
                       </Row>
                       <Row></Row>
-                      {!token &&
+                      {!token && (
                         <Row>
-                          <Col md={6}>
+                          <Col md={6} className="mob-w">
                             <Form.Group className="mb-3">
                               <Form.Label>Password</Form.Label>
                               <InputGroup>
@@ -457,17 +456,18 @@ const Register = () => {
                                 </Form.Control.Feedback>
                               </InputGroup>
                               <small className="text-muted">
-                                Use 8+ characters with a mix of letters, numbers &
-                                symbols
+                                Use 8+ characters with a mix of letters, numbers
+                                & symbols
                               </small>
                             </Form.Group>
                           </Col>
-                        </Row>}
+                        </Row>
+                      )}
                       <Row>
                         {selectedRole === "business-admin" && (
                           <>
                             <Row>
-                              <Col md={6}>
+                              <Col md={6} className="mob-w">
                                 <h2
                                   className="mb-3 font-bold"
                                   style={{ color: "black" }}
@@ -498,13 +498,34 @@ const Register = () => {
                                   <Form.Label>Business Logo</Form.Label>
                                   {!businessImgFile ? (
                                     <div className="p-2 border rounded d-flex align-items-center">
-                                      <input type="file" className="d-none" id="uploadBusinessLogo" accept="image/*" onChange={handleBusinessFileChange} />
-                                      <label htmlFor="uploadBusinessLogo" className="cursor-pointer d-flex align-items-center"><FaUpload className="me-2" />Upload Logo</label>
+                                      <input
+                                        type="file"
+                                        className="d-none"
+                                        id="uploadBusinessLogo"
+                                        accept="image/*"
+                                        onChange={handleBusinessFileChange}
+                                      />
+                                      <label
+                                        htmlFor="uploadBusinessLogo"
+                                        className="cursor-pointer d-flex align-items-center"
+                                      >
+                                        <FaUpload className="me-2" />
+                                        Upload Logo
+                                      </label>
                                     </div>
                                   ) : (
                                     <div className="mb-3 d-flex align-items-center">
-                                      <img src={businessImgFile} className="rounded w-25 me-3" alt="preview" />
-                                      <Button variant="danger" onClick={handleDeleteBusinessImage}>Delete</Button>
+                                      <img
+                                        src={businessImgFile}
+                                        className="rounded w-25 me-3"
+                                        alt="preview"
+                                      />
+                                      <Button
+                                        variant="danger"
+                                        onClick={handleDeleteBusinessImage}
+                                      >
+                                        Delete
+                                      </Button>
                                     </div>
                                   )}
                                 </Form.Group>
@@ -529,7 +550,9 @@ const Register = () => {
                                 <Form.Group className="mb-3">
                                   <Form.Label>Country</Form.Label>
                                   <Form.Select
-                                    {...register("businessCountry", { required: true })}
+                                    {...register("businessCountry", {
+                                      required: true,
+                                    })}
                                     isInvalid={!!errors.businessCountry}
                                     defaultValue=""
                                   >
@@ -551,7 +574,9 @@ const Register = () => {
                                 <Form.Group className="mb-3">
                                   <Form.Label>State</Form.Label>
                                   <Form.Select
-                                    {...register("businessState", { required: true })}
+                                    {...register("businessState", {
+                                      required: true,
+                                    })}
                                     isInvalid={!!errors.businessState}
                                     defaultValue=""
                                     disabled={!states.length}
@@ -574,7 +599,9 @@ const Register = () => {
                                 <Form.Group className="mb-3">
                                   <Form.Label>City</Form.Label>
                                   <Form.Select
-                                    {...register("businessCity", { required: true })}
+                                    {...register("businessCity", {
+                                      required: true,
+                                    })}
                                     isInvalid={!!errors.businessCity}
                                     defaultValue=""
                                     disabled={!cities.length}
@@ -614,7 +641,7 @@ const Register = () => {
                           </>
                         )}
                       </Row>
-                      <div className="flex-row gap-5 mb-10 d-flex align-items-center mt-7">
+                      <div className="flex-row gap-5 mb-2 d-flex align-items-center  mob-block">
                         <Button
                           variant="primary"
                           type="submit"
@@ -623,14 +650,14 @@ const Register = () => {
                           Sign Up
                         </Button>
 
-                        <p className="flex-grow-0 text-center">
+                        <p className="flex-grow-0 text-center mob-lft">
                           Already have an account?{" "}
                           <Link to="/login" className="text-success">
                             Log in
                           </Link>
                         </p>
                       </div>
-                      <p className="text-center">
+                      <p className="">
                         <b>Copyright 2023 © </b> Designed by Tyler Fox.
                         UseAvo.com serving local businesses in Abington PA,
                         Ambler PA, Bryn Athyn PA, Dresher PA, Fort Washington
