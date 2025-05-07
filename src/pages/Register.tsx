@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../services/store/store";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import {
+  googleSignUpUser,
   signUpUser,
   uploadLogoImage,
 } from "../services/slices/auth/signUpSlice";
@@ -12,8 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from "../components/Register/validation/registerSchema";
 import PhoneInput from 'react-phone-input-2';
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 import * as CSC from "country-state-city";
+import { useLocation } from "react-router-dom";
 
 
 type FormValues = {
@@ -65,11 +67,11 @@ const Register = () => {
   const [countries, setCountries] = useState(CSC.Country.getAllCountries());
   const [states, setStates] = useState<ReturnType<typeof CSC.State.getStatesOfCountry>>([]);
   const [cities, setCities] = useState<ReturnType<typeof CSC.City.getCitiesOfState>>([]);
-
-
+  const [token, setToken] = useState<string | null>(null);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const location = useLocation();
 
 
   const {
@@ -89,12 +91,21 @@ const Register = () => {
   const selectedState = watch("businessState");
 
   useEffect(() => {
+    const prefillEmail = (location.state as any)?.email;
+    const tokenFromState = (location.state as any)?.token || null;
+    setToken(tokenFromState);
+    if (prefillEmail) {
+      setValue("email", prefillEmail);
+      setValue("password", "1234567890")
+    }
+  }, [location.state, setValue]);
+
+  useEffect(() => {
     if (!selectedCountry) {
       setStates([]);
       return;
     }
     setStates(CSC.State.getStatesOfCountry(selectedCountry));
-    // reset city
     setCities([]);
   }, [selectedCountry]);
 
@@ -141,6 +152,7 @@ const Register = () => {
         profile_photo: profileUrl,
         is_businessadmin,
         address: data.address,
+        token: token,
       };
 
       let payload: Record<string, any>;
@@ -154,27 +166,44 @@ const Register = () => {
           business_country: data.businessCountry,
           business_pincode: data.pinCode,
           business_logo: businessUrl,
+          token: token
         };
       } else {
         payload = { ...commonFields };
       }
       console.log("payload", payload)
 
-      dispatch(signUpUser({ payload: payload, navigate }))
-        .unwrap()
-        .then((res) => {
-          toast.success("Signup successful!");
-          reset();
-          setFile(null);
-          setImgFile(null);
-          setBusinessFile(null);
-          setBusinessImgFile(null);
-          setSelectedRole("");
-        })
-        .catch((error) => {
-          console.error("Signup error:", error);
-          toast.error("Signup failed. Please try again.");
-        });
+      if (token) {
+        dispatch(googleSignUpUser({ payload, navigate }))
+          .unwrap()
+          .then((res) => {
+            toast.success("Signup successful!");
+            reset();
+            setFile(null);
+            setImgFile(null);
+            setBusinessFile(null);
+            setBusinessImgFile(null);
+            setSelectedRole("");
+          })
+
+      } else {
+
+        dispatch(signUpUser({ payload: payload, navigate }))
+          .unwrap()
+          .then((res) => {
+            toast.success("Signup successful!");
+            reset();
+            setFile(null);
+            setImgFile(null);
+            setBusinessFile(null);
+            setBusinessImgFile(null);
+            setSelectedRole("");
+          })
+          .catch((error) => {
+            console.error("Signup error:", error);
+            toast.error("Signup failed. Please try again.");
+          });
+      }
 
     } catch (err) {
       console.error("Unexpected error:", err);
@@ -216,7 +245,6 @@ const Register = () => {
           <Col md={12} lg={12}>
             <div className="">
               <Row className="">
-                {/* Left Section */}
                 <Col
                   md={5}
                   className="py-4 text-white bg-dark d-flex flex-column justify-content-center"
@@ -322,6 +350,7 @@ const Register = () => {
                               placeholder="Enter your email"
                               {...register("email", { required: true })}
                               isInvalid={!!errors.email}
+                              disabled={!!token}
                             />
                             <Form.Control.Feedback type="invalid">
                               This field is required
@@ -404,35 +433,36 @@ const Register = () => {
                         </Col>
                       </Row>
                       <Row></Row>
-                      <Row>
-                        <Col md={6}>
-                          <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
-                            <InputGroup>
-                              <Form.Control
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="Enter password"
-                                {...register("password", { required: true })}
-                                isInvalid={!!errors.password}
-                              />
-                              <InputGroup.Text
-                                onClick={() => setShowPassword(!showPassword)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                {showPassword ? <FaEye /> : <FaEyeSlash />}
-                              </InputGroup.Text>
-                              <Form.Control.Feedback type="invalid">
-                                This field is required
-                              </Form.Control.Feedback>
-                            </InputGroup>
-                            <small className="text-muted">
-                              Use 8+ characters with a mix of letters, numbers &
-                              symbols
-                            </small>
-                          </Form.Group>
-                        </Col>
-                      </Row>
+                      {!token &&
+                        <Row>
+                          <Col md={6}>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Password</Form.Label>
+                              <InputGroup>
+                                <Form.Control
+                                  type={showPassword ? "text" : "password"}
+                                  name="password"
+                                  placeholder="Enter password"
+                                  {...register("password", { required: true })}
+                                  isInvalid={!!errors.password}
+                                />
+                                <InputGroup.Text
+                                  onClick={() => setShowPassword(!showPassword)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                </InputGroup.Text>
+                                <Form.Control.Feedback type="invalid">
+                                  This field is required
+                                </Form.Control.Feedback>
+                              </InputGroup>
+                              <small className="text-muted">
+                                Use 8+ characters with a mix of letters, numbers &
+                                symbols
+                              </small>
+                            </Form.Group>
+                          </Col>
+                        </Row>}
                       <Row>
                         {selectedRole === "business-admin" && (
                           <>

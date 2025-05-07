@@ -10,13 +10,16 @@ import { Provider } from "react-redux";
 import { store } from "../src/services/store/store";
 import { Toaster } from "react-hot-toast";
 import 'react-phone-input-2/lib/style.css';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-      <Toaster position="top-center" reverseOrder={false} />
-    </Provider>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <Provider store={store}>
+        <App />
+        <Toaster position="top-center" reverseOrder={false} />
+      </Provider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 

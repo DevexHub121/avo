@@ -8,7 +8,7 @@ import {
   verifyAccount,
 } from "../services/slices/auth/signUpSlice";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 
 const OtpScreen = () => {
@@ -55,16 +55,14 @@ const OtpScreen = () => {
     try {
       const response = await dispatch(verifyAccount({ payload: otpData, navigate }));
 
-      if (verifyAccount.fulfilled.match(response)) {
-        const resData = response.payload;
-        if (resData?.status === 200) {
-          toast.success("OTP verified successfully!");
-          navigate("/success-page");
-        } else {
-          toast.error(resData?.data?.message || "OTP verification failed.");
-        }
+      const resData = response.payload;
+      if (resData?.status === 200) {
+        console.log("abc")
+        toast.success("OTP verified successfully!");
+        navigate("/dashboard");
       } else {
-        toast.error("Verification failed. Please try again.");
+        console.log(123)
+        toast.error(resData?.data?.message || "OTP verification failed.");
       }
     } catch (err) {
       console.error("Verification error:", err);
@@ -80,7 +78,7 @@ const OtpScreen = () => {
   };
   return (
     <div className="bg-img account vh-100 d-flex justify-content-center align-items-center">
-      <div className="bg-white  p-4 rounded otp text-center m-2">
+      <div className="p-4 m-2 text-center bg-white rounded otp">
         <h3 className="fw-bold">One Time Password</h3>
         <p className="text-secondary">
           Please check your email and fill OTP (One Time Password)
@@ -88,11 +86,11 @@ const OtpScreen = () => {
 
         <p className="fw-bold">OTP</p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ul className="d-flex gap-3 justify-content-center p-0">
+          <ul className="gap-3 p-0 d-flex justify-content-center">
             {watch("otp").map((_, index) => (
               <li
                 key={index}
-                className="border border-success list-unstyled px-3 py-2 rounded"
+                className="px-3 py-2 border rounded border-success list-unstyled"
               >
                 <Controller
                   name={`otp.${index}`}
@@ -103,7 +101,7 @@ const OtpScreen = () => {
                       {...field}
                       ref={(el: any) => (inputRefs.current[index] = el)}
                       type="text"
-                      className="text-center border-0 bg-transparent otp-inputs"
+                      className="text-center bg-transparent border-0 otp-inputs"
                       maxLength={1}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onPaste={(e) => {
@@ -129,14 +127,14 @@ const OtpScreen = () => {
               </li>
             ))}
           </ul>
-          {errors.otp && <p className="text-danger mt-2">OTP is required</p>}
-          <button type="submit" className="btn btn-success mt-3 px-3">
+          {errors.otp && <p className="mt-2 text-danger">OTP is required</p>}
+          <button type="submit" className="px-3 mt-3 btn btn-success">
             Next
           </button>
 
           <button
             type="button"
-            className="btn btn-danger mt-3 px-3 ms-3"
+            className="px-3 mt-3 btn btn-danger ms-3"
             onClick={() => resendOtp()}
           >
             Resend OTP

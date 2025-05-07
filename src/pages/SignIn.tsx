@@ -3,9 +3,13 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { signInUser } from "../services/slices/auth/signUpSlice";
+import { signInUser, signInWithGoogle } from "../services/slices/auth/signUpSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../services/store/store";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 interface SignInFormData {
   email: string;
@@ -25,12 +29,74 @@ const SignIn = () => {
   const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
     dispatch(signInUser({ payload: data, from, navigate }));
   };
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+
+        const { data: googleUser } = await axios.get(
+          "https://www.googleapis.com/oauth2/v2/userinfo",
+          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
+        );
+
+
+        console.log("googleUser", googleUser)
+
+        await dispatch(
+          signInWithGoogle({
+            token: tokenResponse.access_token,
+            from,
+            navigate,
+          })
+        )
+          .unwrap().then((res: any) => {
+            const msg = res?.message
+            if (msg.includes("User not found")) {
+              toast("⚠ User not found, please register first")
+              navigate("/register", {
+                state: { email: googleUser?.email, token: tokenResponse.access_token || null },
+              });
+            } else if (msg.includes("Sign in successful.")) {
+              toast.success(msg);
+              navigate("/dashboard");
+              Cookies.set("user_data", JSON.stringify(res?.user), {
+                expires: 30,
+              });
+
+            }
+
+
+            else {
+              toast.error(msg);
+            }
+
+          })
+          .catch((err: any) => {
+            const msg = err?.message || err || "";
+
+            if (msg.includes("User not found")) {
+              navigate("/register", {
+                state: { email: googleUser?.email },
+              });
+            } else {
+              toast.error(msg);
+            }
+          });
+      } catch (err: any) {
+        toast.error("Something went wrong during Google login.");
+      }
+
+    },
+    onError: () => {
+      toast.error("Google sign-in failed");
+    },
+  });
   return (
     <div className="account">
       <Container className="d-flex justify-content-center align-items-center vh-100">
-        <Card className="shadow-lg border-0 w-75 ">
+        <Card className="border-0 shadow-lg w-75 ">
           <Row>
-            {/* Left Side - Create Account */}
+
             <Col md={6} className="p-5 ">
               <h3 className="fw-bold">Create an account</h3>
               <p className="text-muted">
@@ -57,7 +123,7 @@ const SignIn = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </li>
               </ul>
-              <Button variant="dark" className="w-100 py-2 rounded-pill">
+              <Button variant="dark" className="py-2 w-100 rounded-pill">
                 <Link
                   to="/register"
                   className="text-white text-decoration-none"
@@ -95,7 +161,7 @@ const SignIn = () => {
                     This field is required
                   </Form.Control.Feedback>
                 </Form.Group>
-                <div className="d-flex justify-content-between mb-3">
+                <div className="mb-3 d-flex justify-content-between">
                   <span></span>
                   <Link
                     to="/forgot-password"
@@ -106,14 +172,14 @@ const SignIn = () => {
                 </div>
                 <Button
                   variant="secondary"
-                  className="w-100 py-2 rounded-pill"
+                  className="py-2 w-100 rounded-pill"
                   type="submit"
                 >
                   Sign in
                 </Button>
-                <div className="text-center my-3">
+                <div className="my-3 text-center">
                   {" "}
-                  <div className="d-flex align-items-center gap-3">
+                  <div className="gap-3 d-flex align-items-center">
                     <div
                       className="border-b w-50"
                       style={{ borderBottom: "1px solid #80808042" }}
@@ -128,10 +194,11 @@ const SignIn = () => {
                 </div>
                 <Button
                   variant="outline-dark"
-                  className="w-100 py-2 rounded-pill"
+                  className="w-100 rounded-pill"
+                  onClick={() => loginWithGoogle()}
                 >
-                  <div className="me-2" />{" "}
-                  <span>
+                  <div className="gap-2 d-flex align-items-center justify-content-center" >
+
                     <svg
                       width="24"
                       height="25"
@@ -156,11 +223,13 @@ const SignIn = () => {
                         fill="#EB4335"
                       />
                     </svg>
-                  </span>{" "}
-                  Continue with Google
+
+                    <span className=""> Continue with Google</span>
+                  </div>
+
                 </Button>
               </Form>
-              <p className="text-muted mt-3 text-center">
+              <p className="mt-3 text-center text-muted">
                 By continuing, you agree to the <a href="/">Terms of use</a> and
                 <a href="/"> Privacy Policy</a>.
               </p>

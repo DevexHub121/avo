@@ -19,7 +19,6 @@ export const signUpUser = createAsyncThunk<
       dispatch(startLoadingActivity());
       const response = await api.post("Avo/SignUp", payload);
       const resData = response.data;
-      console.log("response------------------------000000000000", response.data)
       if (resData.status !== 200) {
         // Show toast here or handle in Register.tsx
         toast.error(resData.data?.message || "Signup failed");
@@ -43,6 +42,44 @@ export const signUpUser = createAsyncThunk<
     }
   }
 );
+
+export const googleSignUpUser = createAsyncThunk<
+  any,
+  { payload: any; navigate: (path: string) => void }
+>(
+  "auth/googleSignUpUser",
+  async ({ payload, navigate }, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(startLoadingActivity());
+
+      const response = await api.post("Avo/google_register", payload);
+      const resData = response.data;
+      console.log("resData-----------", resData?.user)
+
+      if (resData.status !== 200) {
+        toast.error(resData.message || "Google Signup failed");
+        return rejectWithValue(resData.message || "Google Signup failed");
+      }
+
+      Cookies.set("user_data", JSON.stringify(resData?.user), {
+        expires: 30,
+      });
+      toast.success("Signed up successfully via Google!");
+      navigate("/dashboard");
+
+      return resData;
+    } catch (error: any) {
+      console.error("Google signup error:", error);
+      if (error.response && error.response.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue("Google signup failed due to an unexpected error");
+    } finally {
+      dispatch(stopLoadingActivity());
+    }
+  }
+);
+
 
 export const uploadLogoImage = createAsyncThunk<any>(
   "auth/uploadLogoImage",
@@ -89,8 +126,6 @@ export const verifyAccount = createAsyncThunk<
       const response = await api.post("Avo/verify-otp", payload);
       if (response.status === 200) {
         dispatch(stopLoadingActivity());
-        toast.success("Account verified successfully!");
-        navigate("/login");
         return response.data;
       } else {
         return rejectWithValue("Account verification failed");
@@ -139,7 +174,7 @@ export const signInUser = createAsyncThunk<
     try {
       dispatch(startLoadingActivity());
       const response = await api.post("Avo/signin", payload);
-      if (response.status === 200) {
+      if (response?.data?.status === 200) {
         dispatch(stopLoadingActivity());
         Cookies.set("user_data", JSON.stringify(response?.data?.data?.user), {
           expires: 30,
@@ -152,7 +187,7 @@ export const signInUser = createAsyncThunk<
         }
         return response.data;
       } else {
-        toast.error("Something went wrong!");
+        toast.error("Invalid Credentials");
         return rejectWithValue("SingIn failed");
       }
     } catch (error) {
@@ -165,6 +200,47 @@ export const signInUser = createAsyncThunk<
     }
   }
 );
+
+// ******************Google sign in *************
+
+
+// src/features/auth/authSlice.ts
+
+
+// Async thunk for Google Sign-In
+export const signInWithGoogle = createAsyncThunk<
+  any,
+  { token: string; from: string; navigate: (path: string, options?: any) => void }
+>(
+  "auth/signInWithGoogle",
+  async ({ token, from, navigate }, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(startLoadingActivity());
+
+      const response = await api.post("Avo/google_signIn", { token });
+      if (response.status === 200) {
+        console.log("response", response)
+        return response.data;
+      } else {
+        toast.error("Google SignIn failed!");
+        return rejectWithValue("Google SignIn failed");
+      }
+    } catch (error: any) {
+      console.error("Google SignIn Error:", error);
+
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+        return rejectWithValue(error.response.data.message);
+      }
+
+      toast.error("An unexpected error occurred");
+      return rejectWithValue("An unexpected error occurred during Google SignIn");
+    } finally {
+      dispatch(stopLoadingActivity());
+    }
+  }
+);
+
 
 export const forgotPassword = createAsyncThunk<any>(
   "auth/forgotPassword",
@@ -272,6 +348,26 @@ const signUpSlice = createSlice({
         state.data = action.payload.data;
       })
       .addCase(signUpUser.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(googleSignUpUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(googleSignUpUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload.data;
+      })
+      .addCase(googleSignUpUser.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(signInWithGoogle.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(signInWithGoogle.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload.data;
+      })
+      .addCase(signInWithGoogle.rejected, (state, action) => {
         state.loading = false;
       })
 
