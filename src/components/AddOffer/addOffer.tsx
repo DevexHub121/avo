@@ -36,19 +36,35 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
   );
 
   const onSubmit: SubmitHandler<OfferFormData> = async (data: any) => {
-    if (modalType === "edit" && offerItem) {
-      dispatch(
-        createOffer({ payload: data, business_id: userDetails?.business_id })
-      );
-    } else {
-      dispatch(
-        createOffer({ payload: data, business_id: userDetails?.business_id })
-      );
+
+    try {
+
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const res = await dispatch(uploadLogoImage(formData)).unwrap();
+        // replace the local preview-URL with the server URL
+        data.image = res.url;
+      }
+
+      if (modalType === "edit" && offerItem) {
+        dispatch(
+          createOffer({ payload: data, business_id: userDetails?.business_id })
+        );
+      } else {
+        dispatch(
+          createOffer({ payload: data, business_id: userDetails?.business_id })
+        );
+      }
+      handleCloseOffer();
+      setImgFile(null);
+      reset();
+    } catch (err) {
+      console.error("Error saving offer:", err);
     }
-    handleCloseOffer();
-    setImgFile(null);
-    reset();
-  };
+  }
 
   const handleFileChange = (e: any) => {
     const fileData = e.target.files[0];
@@ -238,9 +254,8 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
                   rules={{ required: false }}
                   render={({ field }) => (
                     <div
-                      className={`d-flex align-items-center border p-2 rounded ${
-                        errors.image ? "border-danger" : ""
-                      }`}
+                      className={`d-flex align-items-center border p-2 rounded ${errors.image ? "border-danger" : ""
+                        }`}
                     >
                       <input
                         type="file"
@@ -254,7 +269,7 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
                       />
                       <label
                         htmlFor="uploadLogo"
-                        className="d-flex align-items-center cursor-pointer"
+                        className="cursor-pointer d-flex align-items-center"
                       >
                         <FaUpload className="me-2" />
                         <span>Upload logo</span>
@@ -267,8 +282,8 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
                 )}
               </Form.Group>
             ) : (
-              <div className="w-100 mb-2 mt-3">
-                <div className="w-100 mb-2">
+              <div className="mt-3 mb-2 w-100">
+                <div className="mb-2 w-100">
                   <img
                     className="w-25 rounded-circle"
                     src={imgFile}
@@ -277,19 +292,17 @@ const AddOffer = ({ showOffer, handleCloseOffer, modalType, offerItem }) => {
                 </div>
                 <div className="w-100">
                   <Button
-                    className="w-10 me-2"
+                    className="w-18 me-2"
                     variant="danger"
-                    onClick={() => handleDeleteImage()}
+                    onClick={() => {
+                      setImgFile(null);
+                      setFile(null);
+                      setValue("image", "");
+                    }}
                   >
                     Delete
                   </Button>
-                  <Button
-                    className="w-10"
-                    variant="success"
-                    onClick={() => handleFileUpload()}
-                  >
-                    Upload
-                  </Button>
+
                 </div>
               </div>
             )}
