@@ -375,10 +375,9 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   body .mob-block {
     flex-direction: column !important;
+    gap: 2px !important;
   }
-  .buss {
-    margin-top: 175px;
-  }
+
   .haeder {
     margin-bottom: 0px !important;
   }

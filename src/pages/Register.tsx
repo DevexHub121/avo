@@ -276,6 +276,7 @@ const Register = () => {
                       height: "60vh",
                       overflowY: "auto",
                       padding: "1.5rem",
+                      marginBottom: "10px",
                     }}
                   >
                     <h4 className="mb-4 fw-bold">Sign-Up</h4>
