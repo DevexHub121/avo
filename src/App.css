@@ -10,6 +10,9 @@
 .mob-view {
   display: none;
 }
+.collapse {
+  visibility: visible;
+}
 .sign {
   width: 100% !important;
 }
