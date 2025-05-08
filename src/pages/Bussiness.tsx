@@ -27,7 +27,7 @@ const Bussiness = () => {
             <Link className="navbar-brand fw-bold" to="/">
               <img
                 className="img-fluid"
-                style={{ maxWidth: "133px" }}
+                style={{ maxWidth: "45px" }}
                 src="/images/logo.png"
                 alt="Logo"
               />
@@ -47,7 +47,7 @@ const Bussiness = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0  w-full justify-center">
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
                     Home

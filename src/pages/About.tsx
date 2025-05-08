@@ -20,7 +20,7 @@ const About = () => {
             <a className="navbar-brand fw-bold" href="/">
               <img
                 className="img-fluid"
-                style={{ maxWidth: "133px" }}
+                style={{ maxWidth: "45px" }}
                 src="/images/logo.png"
                 alt="img"
               />
@@ -40,7 +40,7 @@ const About = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0 w-full justify-center">
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
                     Home
@@ -54,7 +54,7 @@ const About = () => {
 
                 <li className="nav-item">
                   <Link className="nav-link" to="/how-it-works">
-                  How AVO Works
+                    How AVO Works
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -96,7 +96,7 @@ const About = () => {
             </div>
             <div className="desktop">
               <button
-                className="btn btn-outline-light border text-hover mx-2"
+                className="btn btn-hover btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
               >

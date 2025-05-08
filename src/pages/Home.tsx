@@ -27,7 +27,7 @@ const Home = () => {
             <a className="navbar-brand fw-bold" href="/">
               <img
                 className="img-fluid"
-                style={{ maxWidth: "133px" }}
+                style={{ maxWidth: "45px" }}
                 src="/images/logo.png"
                 alt="img"
               />
@@ -47,7 +47,7 @@ const Home = () => {
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0  w-full justify-center">
                 <li className="nav-item">
                   <Link className="nav-link" to="/">
                     Home
@@ -247,8 +247,63 @@ const Home = () => {
           Benefits Of AVO
         </h2>
         <img className="dooler" src="/images/doler.png" alt="img" />
-        <img className="img-fluid " src="/images/conent-img.png" alt="img" />
+        <img
+          className="img-fluid mob-none "
+          src="/images/conent-img.png"
+          alt="img"
+        />
       </section>
+      <div
+        className="container py-5 d-block d-md-none mb-5"
+        style={{ backgroundColor: "#72E4AC" }}
+      >
+        <div className="text-center mb-4">
+          <h2 className="fw-bold fs-4">Employee Discount Program</h2>
+          <p className="mb-4">Attract top talent with meaningful local perks</p>
+        </div>
+
+        {/* Block 1 */}
+        <div className="text-center mb-5">
+          <div
+            className="rounded-circle bg-white d-flex align-items-center justify-content-center mx-auto mb-3"
+            style={{ width: "120px", height: "120px" }}
+          >
+            <img className="img-fluid" src="/images/discount.png" alt="img" />
+          </div>
+          <h5 className="fw-bold">Employment Discount</h5>
+          <p>
+            Offer exclusive savings to your staff to increase satisfaction and
+            loyalty
+          </p>
+        </div>
+
+        {/* Block 2 */}
+        <div className="text-center mb-5">
+          <div
+            className="rounded-circle bg-dark d-flex align-items-center justify-content-center mx-auto mb-3"
+            style={{ width: "120px", height: "120px" }}
+          >
+            <img className="img-fluid" src="/images/reward.png" alt="img" />
+          </div>
+          <h5 className="fw-bold ">Rewarded</h5>
+          <p className="">Recognize and reward your team with tangible value</p>
+        </div>
+
+        {/* Block 3 */}
+        <div className="text-center">
+          <div
+            className="rounded-circle bg-dark d-flex align-items-center justify-content-center mx-auto mb-3"
+            style={{ width: "120px", height: "120px" }}
+          >
+            <img className="img-fluid" src="/images/retain.png" alt="img" />
+          </div>
+          <h5 className="fw-bold ">Retain & Increase Sales</h5>
+          <p className="">
+            Boost foot traffic and keep your brand top of mind in the community
+          </p>
+        </div>
+      </div>
+
       {/* <!-- Testimonials --> */}
       <div className="container" data-aos="fade-up" data-aos-duration="3000">
         <h2 className="fw-bold text-dark features text-center get mb-5">

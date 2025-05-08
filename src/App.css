@@ -43,7 +43,6 @@
 
 .navbar-toggler-icon {
   filter: invert(1);
-  border: 1px solid gray;
 }
 
 .animated-btn {
@@ -1073,5 +1072,11 @@ a.nav-link:hover {
   }
   .order-mobbb {
     padding-top: 0px !important;
+  }
+  .dooler {
+    display: none;
+  }
+  .mob-none {
+    display: none;
   }
 }
