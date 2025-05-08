@@ -373,6 +373,19 @@ input[type="number"]::-webkit-outer-spin-button {
     top: 0;
     left: 100%;
   }
+  .mob-col > div {
+    width: 100%;
+  }
+  .mob-col {
+    flex-direction: column;
+    gap: 20px !important;
+  }
+  .offer {
+    padding: 25px 10px;
+  }
+  section.business-plans {
+    padding-bottom: 0px !important;
+  }
   body .mob-top {
     height: unset !important;
   }

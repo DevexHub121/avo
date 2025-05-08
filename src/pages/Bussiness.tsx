@@ -120,7 +120,7 @@ const Bussiness = () => {
           <p className="text-center  mb-5">
             Start for free during our launch phase
           </p>
-          <div className="d-flex gap-5">
+          <div className="d-flex gap-5 mob-col">
             <div className="price-box">
               {[
                 {
@@ -416,9 +416,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -429,7 +427,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               Thanks to their marketing strategies, our revenue grew by 60% in
               just 6 months!
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
@@ -439,9 +437,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -452,7 +448,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               Their SEO expertise helped us reach top search rankings and double
               our website traffic.
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
@@ -462,9 +458,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -475,7 +469,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               We saw a 75% increase in online sales after implementing their
               paid marketing strategies.
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
@@ -485,9 +479,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -498,7 +490,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               Our brand awareness skyrocketed, and engagement on social media
               tripled!
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
@@ -508,9 +500,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -521,7 +511,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               Their online reputation management helped us regain trust and
               attract more customers.
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
@@ -531,9 +521,7 @@ const Bussiness = () => {
             <div className="d-flex justify-content-center align-items-center card-img">
               <img
                 src="/images/PROFILE.jpg"
-                className="rounded-circle"
-                width="80"
-                height="80"
+                className="w-20 h-20 rounded-full object-cover"
                 alt="Client 1"
               />
             </div>
@@ -544,7 +532,7 @@ const Bussiness = () => {
               <i className="fa fa-quote-left" aria-hidden="true"></i>
               Their strategies made our startup a known brand within just one
               year!
-              <i className="fa fa-quote-right" aria-hidden="true"></i>
+              <i className="fa fa-quote-right mx-1" aria-hidden="true"></i>
             </p>
           </div>
         </div>
