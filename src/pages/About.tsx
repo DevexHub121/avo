@@ -1,6 +1,6 @@
 import React from "react";
 import CountUp from "react-countup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const About = () => {
   const stats = [
     { label: "Businesses Empowered", value: 5000 },
@@ -8,6 +8,7 @@ const About = () => {
     { label: "Communities Strengthened", value: 100 },
     { label: "Customers Reached", value: 1000000 },
   ];
+  const navigate = useNavigate();
   return (
     <div>
       <div className="haeder  overflow-hidden">
@@ -96,9 +97,10 @@ const About = () => {
             </div>
             <div className="desktop">
               <button
-                className="btn btn-hover btn-outline-light border text-hover mx-2"
+                className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
@@ -106,6 +108,7 @@ const About = () => {
               <button
                 className="btn btn-outline-light border text-dark"
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Join Now
               </button>
