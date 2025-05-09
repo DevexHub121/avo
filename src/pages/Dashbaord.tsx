@@ -146,103 +146,101 @@ const Dashboard = () => {
     return `${formattedDate} - ${formattedTime}`;
   };
   return (
-    <div>
-      <div className="pt-3 main-outer vh-200">
-        <div className="container">
-          <Header />
-          <h3 className="py-4 fw-semibold">Dashboard</h3>
-          <DashboardSection />
-        </div>
-        {userDetails?.role === "business_admin" ? (
-          <EmployeComponent
-            handleShowEmployee={handleShowEmployee}
-            employeesData={employeesData}
-            formatDateTime={formatDateTime}
-            handleViewEmployee={handleViewEmployee}
-            handleShowEmployeModal={handleShowEmployeModal}
-            handleEditEmployee={handleEditEmployee}
-          />
-        ) : null}
-        {userDetails?.role === "business_admin" ? (
-          <OfferComponent
-            handleShowOffer={handleShowOffer}
-            offersData={offersData}
-            formatDateTime={formatDateTime}
-            handleViewOffer={handleViewOffer}
-            handleShowOfferModal={handleShowOfferModal}
-            handleEditOffer={handleEditOffer}
-            handlePublishUnpublishOffer={handlePublishUnpublishOffer}
-          />
-        ) : null}
-
-        <RedeemedCoupons
+    <div className="pt-3 main-outer h-full pb-8">
+      <div className="container">
+        <Header />
+        <h3 className="py-4 fw-semibold">Dashboard</h3>
+        <DashboardSection />
+      </div>
+      {userDetails?.role === "business_admin" ? (
+        <EmployeComponent
+          handleShowEmployee={handleShowEmployee}
+          employeesData={employeesData}
+          formatDateTime={formatDateTime}
+          handleViewEmployee={handleViewEmployee}
+          handleShowEmployeModal={handleShowEmployeModal}
+          handleEditEmployee={handleEditEmployee}
+        />
+      ) : null}
+      {userDetails?.role === "business_admin" ? (
+        <OfferComponent
           handleShowOffer={handleShowOffer}
-          redeemedOffersData={redeemedCouponsData}
+          offersData={offersData}
           formatDateTime={formatDateTime}
           handleViewOffer={handleViewOffer}
           handleShowOfferModal={handleShowOfferModal}
           handleEditOffer={handleEditOffer}
           handlePublishUnpublishOffer={handlePublishUnpublishOffer}
         />
-        {/* Modal */}
-        <AddEmployee
-          showEmployee={showEmployee}
-          handleCloseEmployee={handleCloseEmployee}
-          modalType={modalType}
+      ) : null}
+
+      <RedeemedCoupons
+        handleShowOffer={handleShowOffer}
+        redeemedOffersData={redeemedCouponsData}
+        formatDateTime={formatDateTime}
+        handleViewOffer={handleViewOffer}
+        handleShowOfferModal={handleShowOfferModal}
+        handleEditOffer={handleEditOffer}
+        handlePublishUnpublishOffer={handlePublishUnpublishOffer}
+      />
+      {/* Modal */}
+      <AddEmployee
+        showEmployee={showEmployee}
+        handleCloseEmployee={handleCloseEmployee}
+        modalType={modalType}
+        employeeItem={employeeItem}
+      />
+
+      <AddOffer
+        showOffer={showOffer}
+        handleCloseOffer={handleCloseOffer}
+        modalType={modalType}
+        offerItem={modalType === "create-offer" ? null : offerItem}
+      />
+
+      <DeleteModal
+        title="Delete Employee"
+        show={showEmployeeModal}
+        handleClose={handleClose}
+        modalType={modalType}
+        deleteDataItem={deleteEmployeeItem}
+        dataItem={employeeItem}
+      />
+
+      <DeleteModal
+        title="Delete Offer"
+        show={showOfferModal}
+        handleClose={handleClose}
+        modalType={modalType}
+        deleteDataItem={deleteOfferItem}
+        dataItem={offerItem}
+      />
+
+      {modalType === "view-employee" && (
+        <ViewEmployee
+          show={show}
+          handleClose={handleClose}
           employeeItem={employeeItem}
+          formatDateTime={formatDateTime}
         />
+      )}
 
-        <AddOffer
-          showOffer={showOffer}
-          handleCloseOffer={handleCloseOffer}
-          modalType={modalType}
-          offerItem={modalType === "create-offer" ? null : offerItem}
-        />
-
-        <DeleteModal
-          title="Delete Employee"
-          show={showEmployeeModal}
+      {modalType === "view-offer" && (
+        <ViewOffer
+          show={show}
           handleClose={handleClose}
-          modalType={modalType}
-          deleteDataItem={deleteEmployeeItem}
-          dataItem={employeeItem}
+          offerItem={offerItem}
+          formatDateTime={formatDateTime}
         />
+      )}
 
-        <DeleteModal
-          title="Delete Offer"
-          show={showOfferModal}
+      {modalType === "publish-unpublish" && (
+        <PublishUnpublish
+          show={show}
           handleClose={handleClose}
-          modalType={modalType}
-          deleteDataItem={deleteOfferItem}
-          dataItem={offerItem}
+          offerItem={offerItem}
         />
-
-        {modalType === "view-employee" && (
-          <ViewEmployee
-            show={show}
-            handleClose={handleClose}
-            employeeItem={employeeItem}
-            formatDateTime={formatDateTime}
-          />
-        )}
-
-        {modalType === "view-offer" && (
-          <ViewOffer
-            show={show}
-            handleClose={handleClose}
-            offerItem={offerItem}
-            formatDateTime={formatDateTime}
-          />
-        )}
-
-        {modalType === "publish-unpublish" && (
-          <PublishUnpublish
-            show={show}
-            handleClose={handleClose}
-            offerItem={offerItem}
-          />
-        )}
-      </div>
+      )}
     </div>
   );
 };

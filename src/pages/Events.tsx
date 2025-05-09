@@ -1,9 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Events = () => {
+  const navigate = useNavigate();
   const images = [
     // "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
     // "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
@@ -108,6 +109,7 @@ const Events = () => {
                 className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
@@ -115,6 +117,7 @@ const Events = () => {
               <button
                 className="btn btn-outline-light border text-dark"
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Join Now
               </button>

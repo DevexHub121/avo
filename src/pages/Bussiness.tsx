@@ -6,7 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { FaShareAlt } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -14,6 +14,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Bussiness = () => {
+  const navigate = useNavigate();
   return (
     <div className="overflow-hidden">
       {/* Header Section */}
@@ -89,10 +90,17 @@ const Bussiness = () => {
               <button
                 className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
+                type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
-              <button className="btn btn-outline-light border text-dark">
+
+              <button
+                className="btn btn-outline-light border text-dark"
+                type="submit"
+                onClick={() => navigate("/login")}
+              >
                 Join Now
               </button>
             </div>

@@ -4,7 +4,7 @@ import Header from "../components/Header/header";
 import { useSelector } from "react-redux";
 import { RootState } from "../services/store/store";
 import UpdateProfileDetails from "../components/updateProfileDetails/updateProfileDetails";
-import QRCode from 'react-qr-code';
+import QRCode from "react-qr-code";
 
 const ProfileDashboard = () => {
   const [showProfileDetail, setShowProfileDetail] = useState(false);
@@ -14,7 +14,7 @@ const ProfileDashboard = () => {
 
   return (
     <div>
-      <div className="main-outer pt-3  ">
+      <div className="main-outer pt-3  h-full py-8">
         <div className="container">
           <Header />
           <div className="shadow-lg p-4 my-4 rounded">
@@ -33,13 +33,13 @@ const ProfileDashboard = () => {
                 <h6>{userDetails?.email}</h6>
               </div>
               <div className="mt-3 ms-auto">
-              {userDetails && (
-                    <QRCode
-                        value={`${window.location.origin}/dashboard/employee/${userDetails?.id}`}
-                        bgColor={"#FFFFFF"}
-                        fgColor={"#000000"}
-                        size={220}
-                    />
+                {userDetails && (
+                  <QRCode
+                    value={`${window.location.origin}/dashboard/employee/${userDetails?.id}`}
+                    bgColor={"#FFFFFF"}
+                    fgColor={"#000000"}
+                    size={220}
+                  />
                 )}
               </div>
             </div>
@@ -51,7 +51,10 @@ const ProfileDashboard = () => {
                 <h4 className="fw-semibold fs-5 mb-3">Personal information</h4>
               </div>
               <div className="w-50 text-end mb-2">
-                <button className="btn btn-success fw-medium" onClick={()=>setShowProfileDetail(true)}>
+                <button
+                  className="btn btn-success fw-medium"
+                  onClick={() => setShowProfileDetail(true)}
+                >
                   Edit{" "}
                   <svg
                     className="mx-2"
@@ -73,53 +76,60 @@ const ProfileDashboard = () => {
             <div className="table-responsive">
               <table className="table">
                 <thead>
-                <tr>
-                  <th style={{ minWidth: "200px" }}>First Name</th>
-                  <th style={{ minWidth: "200px" }}>Last Name</th>
-                  {/* <th style={{ minWidth: "200px" }}>DOB</th> */}
-                </tr>
+                  <tr>
+                    <th style={{ minWidth: "200px" }}>First Name</th>
+                    <th style={{ minWidth: "200px" }}>Last Name</th>
+                    {/* <th style={{ minWidth: "200px" }}>DOB</th> */}
+                  </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td className="text-secondary">{userDetails?.name?.split(" ")?.[0] ?? ""}</td>
-                  <td className="text-secondary">{userDetails?.name?.split(" ")?.[1] ?? ""}</td>
-                  {/* <td className="text-secondary">12-12-1999</td> */}
-                </tr>
+                  <tr>
+                    <td className="text-secondary">
+                      {userDetails?.name?.split(" ")?.[0] ?? ""}
+                    </td>
+                    <td className="text-secondary">
+                      {userDetails?.name?.split(" ")?.[1] ?? ""}
+                    </td>
+                    {/* <td className="text-secondary">12-12-1999</td> */}
+                  </tr>
                 </tbody>
               </table>
 
               <table className="table">
                 <thead>
-                <tr>
-                  <th style={{ minWidth: "200px" }}>Email Address</th>
-                  <th style={{ minWidth: "200px" }}>Phone Number</th>
-                  <th style={{ minWidth: "200px" }}>User Role</th>
-                </tr>
+                  <tr>
+                    <th style={{ minWidth: "200px" }}>Email Address</th>
+                    <th style={{ minWidth: "200px" }}>Phone Number</th>
+                    <th style={{ minWidth: "200px" }}>User Role</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td className="text-secondary">{userDetails?.email}</td>
-                  <td className="text-secondary">{userDetails?.number}</td>
-                  <td className="text-secondary">{userDetails?.role}</td>
-                </tr>
+                  <tr>
+                    <td className="text-secondary">{userDetails?.email}</td>
+                    <td className="text-secondary">{userDetails?.number}</td>
+                    <td className="text-secondary">{userDetails?.role}</td>
+                  </tr>
                 </tbody>
               </table>
               <table className="table">
-              <thead>
-                <tr>
-                  <th style={{ minWidth: "200px" }}>Address</th>
-                </tr>
-              </thead>
+                <thead>
+                  <tr>
+                    <th style={{ minWidth: "200px" }}>Address</th>
+                  </tr>
+                </thead>
                 <tbody>
-                <tr>
-                  <td className="text-secondary">{userDetails?.address}</td>
-                </tr>
+                  <tr>
+                    <td className="text-secondary">{userDetails?.address}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <UpdateProfileDetails showProfileDetail={showProfileDetail} setShowProfileDetail={setShowProfileDetail} />
+          <UpdateProfileDetails
+            showProfileDetail={showProfileDetail}
+            setShowProfileDetail={setShowProfileDetail}
+          />
         </div>
       </div>
     </div>

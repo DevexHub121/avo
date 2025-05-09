@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HowItsWork = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="haeder  overflow-hidden">
@@ -93,6 +94,7 @@ const HowItsWork = () => {
                 className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
@@ -100,6 +102,7 @@ const HowItsWork = () => {
               <button
                 className="btn btn-outline-light border text-dark"
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Join Now
               </button>

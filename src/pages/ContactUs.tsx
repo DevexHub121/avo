@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     type: "business",
     name: "",
@@ -111,6 +112,7 @@ const ContactUs = () => {
                 className="btn btn-outline-light border text-hover mx-2"
                 style={{ backgroundColor: "#0aa958" }}
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Sign Up
               </button>
@@ -118,6 +120,7 @@ const ContactUs = () => {
               <button
                 className="btn btn-outline-light border text-dark"
                 type="submit"
+                onClick={() => navigate("/login")}
               >
                 Join Now
               </button>

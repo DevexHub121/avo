@@ -731,7 +731,12 @@ const Profile = () => {
               <label htmlFor="userRole" className="form-label mt-3">
                 User Role
               </label>
-              <select className="form-select" id="userRole" name="userRole" defaultValue="admin">
+              <select
+                className="form-select"
+                id="userRole"
+                name="userRole"
+                defaultValue="admin"
+              >
                 <option value="" selected disabled>
                   Select Role
                 </option>
@@ -745,7 +750,12 @@ const Profile = () => {
               <label htmlFor="country" className="form-label mt-3">
                 Country
               </label>
-              <select className="form-select" id="country" name="country" defaultValue="canada">
+              <select
+                className="form-select"
+                id="country"
+                name="country"
+                defaultValue="canada"
+              >
                 <option value="" selected disabled>
                   Select Country
                 </option>

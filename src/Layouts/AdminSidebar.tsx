@@ -72,14 +72,23 @@ export const AdminSideBar = (props: {
         >
           <HiBars3CenterLeft />
         </button>
-        <img
-          className="img-fluid profile"
-          src="/images/logo.png"
-          alt="Profile"
+        <div
           style={{
-            maxWidth: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBlock: "20px",
           }}
-        />
+        >
+          <img
+            className="img-fluid profile"
+            src="/images/logo.png"
+            alt="Profile"
+            style={{
+              maxWidth: "100%",
+            }}
+          />
+        </div>
         {dashboardTabs.map((tab, index) => {
           return (
             <li
